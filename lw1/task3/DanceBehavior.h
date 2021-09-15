@@ -2,12 +2,12 @@
 
 using namespace std;
 
-void Waltz()
+void DanceWaltz()
 {
 	cout << "I'm waltzing!" << endl;
 }
 
-void Minuet()
+void DanceMinuet()
 {
 	cout << "I'm dancing a minuet!" << endl;
 }

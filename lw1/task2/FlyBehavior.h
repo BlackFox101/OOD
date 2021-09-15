@@ -2,9 +2,9 @@
 
 using namespace std;
 
-struct IFlyBehavior
+struct FlyBehavior
 {
-	virtual ~IFlyBehavior() {};
+	virtual ~FlyBehavior() {};
 	virtual void Fly()
 	{
 		cout << "Flight number " << m_flight_number << endl;
@@ -15,27 +15,27 @@ private:
 	int m_flight_number = 0;
 };
 
-class FlyWithWings : public IFlyBehavior
+class FlyWithWings : public FlyBehavior
 {
 public:
 	void Fly() override
 	{
 		cout << "I'm flying with wings! ";
-		IFlyBehavior::Fly();
+		FlyBehavior::Fly();
 	}
 };
 
-class FlyWithJetEngine : public IFlyBehavior
+class FlyWithJetEngine : public FlyBehavior
 {
 public:
 	void Fly() override
 	{
 		cout << "I'm flying et engine!";
-		IFlyBehavior::Fly();
+		FlyBehavior::Fly();
 	}
 };
 
-class FlyNoWay : public IFlyBehavior
+class FlyNoWay : public FlyBehavior
 {
 public:
 	void Fly() override {}

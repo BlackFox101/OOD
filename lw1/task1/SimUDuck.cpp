@@ -21,7 +21,7 @@ int main()
 	MallardDuck mallardDuck;
 	PlayWithDuck(mallardDuck);
 
-	mallardDuck.SetDanceBehavior(make_unique<Minuet>());
+	mallardDuck.SetDanceBehavior(make_unique<DanceMinuet>());
 	PlayWithDuck(mallardDuck);
 
 	RedheadDuck redheadDuck;

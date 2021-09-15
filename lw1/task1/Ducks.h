@@ -60,7 +60,7 @@ private:
 class MallardDuck : public Duck
 {
 public:
-	MallardDuck(): Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<Waltz>())
+	MallardDuck(): Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<DanceWaltz>())
 	{}
 
 	void Display() const override
@@ -72,7 +72,7 @@ public:
 class RedheadDuck : public Duck
 {
 public:
-	RedheadDuck(): Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<Minuet>())
+	RedheadDuck(): Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<DanceMinuet>())
 	{}
 
 	void Display() const override

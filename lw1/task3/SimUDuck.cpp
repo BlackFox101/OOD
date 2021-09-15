@@ -23,14 +23,14 @@ int main()
 
 	modelDuck.SetFlyBehavior(FlyWithWings);
 	PlayWithDuck(modelDuck);
-	modelDuck.SetFlyBehavior(FlyWithWings);
+	modelDuck.SetFlyBehavior(FlyWithJetEngine);
 	PlayWithDuck(modelDuck);
 
 	modelDuck.SetQuackBehavior(SqueakBehavior);
 	PlayWithDuck(modelDuck);
 
-	modelDuck.SetDanceBehavior(Waltz);
+	modelDuck.SetDanceBehavior(DanceWaltz);
 	PlayWithDuck(modelDuck);
-	modelDuck.SetDanceBehavior(Minuet);
+	modelDuck.SetDanceBehavior(DanceMinuet);
 	PlayWithDuck(modelDuck);
 }

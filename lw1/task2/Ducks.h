@@ -13,7 +13,7 @@ using namespace std;
 class Duck
 {
 public:
-	Duck(unique_ptr<IFlyBehavior>&& flyBehavior, unique_ptr<IQuackBehavior>&& quackBehavior, unique_ptr<IDanceBehavior>&& danceBehavior)
+	Duck(unique_ptr<FlyBehavior>&& flyBehavior, unique_ptr<IQuackBehavior>&& quackBehavior, unique_ptr<IDanceBehavior>&& danceBehavior)
 		: m_quackBehavior(move(quackBehavior))
 	{
 		assert(m_quackBehavior);
@@ -37,7 +37,7 @@ public:
 		m_danceBehavior->Dance();
 	}
 
-	void SetFlyBehavior(unique_ptr<IFlyBehavior>&& flyBehavior)
+	void SetFlyBehavior(unique_ptr<FlyBehavior>&& flyBehavior)
 	{
 		assert(flyBehavior);
 		m_flyBehavior = move(flyBehavior);
@@ -52,7 +52,7 @@ public:
 	virtual ~Duck() = default;
 
 private:
-	unique_ptr<IFlyBehavior> m_flyBehavior;
+	unique_ptr<FlyBehavior> m_flyBehavior;
 	unique_ptr<IQuackBehavior> m_quackBehavior;
 	unique_ptr<IDanceBehavior> m_danceBehavior;
 };
@@ -60,7 +60,7 @@ private:
 class MallardDuck : public Duck
 {
 public:
-	MallardDuck(): Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<Waltz>())
+	MallardDuck(): Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<DanceWaltz>())
 	{}
 
 	void Display() const override
@@ -72,7 +72,7 @@ public:
 class RedheadDuck : public Duck
 {
 public:
-	RedheadDuck(): Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<Minuet>())
+	RedheadDuck(): Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<DanceMinuet>())
 	{}
 
 	void Display() const override

@@ -9,12 +9,16 @@
 #include "QuackBehavior.h"
 #include "DanceBehavior.h"
 
+typedef function<void()> FlyFunction;
+typedef function<void()> QuackFunction;
+typedef function<void()> DanceFunction;
+
 using namespace std;
 
 class Duck
 {
 public:
-	Duck(function<void()>&& flyBehavior, function<void()>&& quackBehavior, function<void()>&& danceBehavior)
+	Duck(FlyFunction&& flyBehavior, QuackFunction&& quackBehavior, DanceFunction&& danceBehavior)
 	{
 		SetFlyBehavior(move(flyBehavior));
 		SetQuackBehavior(move(quackBehavior));
@@ -57,15 +61,15 @@ public:
 	virtual ~Duck() = default;
 
 private:
-	function<void()> m_flyBehavior;
-	function<void()> m_quackBehavior;
-	function<void()> m_danceBehavior;
+	FlyFunction m_flyBehavior;
+	QuackFunction m_quackBehavior;
+	DanceFunction m_danceBehavior;
 };
 
 class MallardDuck : public Duck
 {
 public:
-	MallardDuck() : Duck(FlyWithWings, QuackBehavior, Waltz)
+	MallardDuck() : Duck(FlyWithWings, QuackBehavior, DanceWaltz)
 	{}
 
 	void Display() const override
@@ -77,7 +81,7 @@ public:
 class RedheadDuck : public Duck
 {
 public:
-	RedheadDuck() : Duck(FlyWithWings, QuackBehavior, Minuet)
+	RedheadDuck() : Duck(FlyWithWings, QuackBehavior, DanceMinuet)
 	{
 	}
 
