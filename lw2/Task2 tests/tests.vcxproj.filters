@@ -15,18 +15,15 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Observer.h">
+    <ClInclude Include="..\task2\Display.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WeatherData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Display.h">
+    <ClInclude Include="..\task2\WeatherData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

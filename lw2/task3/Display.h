@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
-#include <vector>
-#include <map>
+#include "Observer.h"
 #include "WeatherData.h"
 
 using namespace std;
@@ -24,7 +23,6 @@ private:
 
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
-private:
 	void Update(SWeatherInfo const& data)
 	{
 		m_temperature.GetStats(data.temperature);

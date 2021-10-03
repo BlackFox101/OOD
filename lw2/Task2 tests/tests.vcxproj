@@ -21,9 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{abe9c876-675a-47e2-bcfe-734d46f49bf4}</ProjectGuid>
-    <RootNamespace>task1</RootNamespace>
+    <ProjectGuid>{fbb19fbf-fbd6-42c4-8077-9b4a4a0ab518}</ProjectGuid>
+    <RootNamespace>tests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Task2 tests</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -139,12 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="tests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Display.h" />
-    <ClInclude Include="Observer.h" />
-    <ClInclude Include="WeatherData.h" />
+    <ClInclude Include="..\task2\Display.h" />
+    <ClInclude Include="..\task2\WeatherData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

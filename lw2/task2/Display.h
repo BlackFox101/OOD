@@ -1,14 +1,23 @@
 #pragma once
 #include <string>
 #include <vector>
-#include <map>
+#include "Observer.h"
 #include "WeatherData.h"
 
 using namespace std;
 
 class CDisplay : public IObserver<SWeatherInfo>
 {
+public:
+	typedef IObservable<SWeatherInfo> ObservableType;
+
+	CDisplay(ObservableType& observable)
+		: m_observable(&observable)
+	{
+	}
+
 private:
+
 	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
 		Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
 		остается публичным
@@ -19,12 +28,19 @@ private:
 		cout << "Current Hum " << data.humidity << endl;
 		cout << "Current Pressure " << data.pressure << endl;
 		cout << "----------------" << endl;
+
+		if (m_observable)
+		{
+			m_observable->RemoveObserver(*this);
+			m_observable = nullptr;
+		}
 	}
+
+	ObservableType* m_observable;
 };
 
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
-private:
 	void Update(SWeatherInfo const& data)
 	{
 		m_temperature.GetStats(data.temperature);
@@ -68,7 +84,7 @@ private:
 		unsigned m_countAcc = 0;
 	};
 
-	StatsItem m_temperature = "Temp"s;
-	StatsItem m_humidity = "Hum"s;
-	StatsItem m_pressure = "Pressure"s;
+	StatsItem m_temperature = (string)"Temp";
+	StatsItem m_humidity = (string)"Hum";
+	StatsItem m_pressure = (string)"Pressure";
 };
