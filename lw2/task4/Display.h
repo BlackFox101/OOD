@@ -1,6 +1,5 @@
 #pragma once
 #include <string>
-#include <vector>
 #include "Observer.h"
 #include "WeatherData.h"
 
@@ -18,14 +17,13 @@ string GetStringSensorType(SensorTypes sensorType)
 class CDisplay : public IObserver<SWeatherInfo>
 {
 private:
-
-	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую
-		Классу CObservable он будет доступен все равно, т.к. в интерфейсе IObserver он
-		остается публичным
+	/* РњРµС‚РѕРґ Update СЃРґРµР»Р°РЅ РїСЂРёРІР°С‚РЅС‹Рј, С‡С‚РѕР±С‹ РѕРіСЂР°РЅРёС‡РёС‚СЊ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ РµРіРѕ РІС‹Р·РѕРІР° РЅР°РїСЂСЏРјСѓСЋ
+		РљР»Р°СЃСЃСѓ CObservable РѕРЅ Р±СѓРґРµС‚ РґРѕСЃС‚СѓРїРµРЅ РІСЃРµ СЂР°РІРЅРѕ, С‚.Рє. РІ РёРЅС‚РµСЂС„РµР№СЃРµ IObserver РѕРЅ
+		РѕСЃС‚Р°РµС‚СЃСЏ РїСѓР±Р»РёС‡РЅС‹Рј
 	*/
-	void Update(SWeatherInfo const& data, SensorTypes sensorType) override
+	void Update(SWeatherInfo const& data, IObservable<SWeatherInfo>& observable) override
 	{
-		string sensor = GetStringSensorType(sensorType);
+		string sensor = GetStringSensorType((&observable)->getType());
 		cout << "Current " << sensor << " Temp " << data.temperature << endl;
 		cout << "Current " << sensor << " Hum " << data.humidity << endl;
 		cout << "Current " << sensor << " Pressure " << data.pressure << endl;
@@ -36,22 +34,23 @@ private:
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
 private:
-	void Update(SWeatherInfo const& data, SensorTypes sensorType)
+	void Update(SWeatherInfo const& data, IObservable<SWeatherInfo>& observable)
 	{
+		SensorTypes sensorType = (&observable)->getType();
+
 		if (sensorType == SensorTypes::In)
 		{
-			m_stats_in.temperature.GetStats(data.temperature, SensorTypes::In);
-			m_stats_in.humidity.GetStats(data.humidity, SensorTypes::In);
-			m_stats_in.pressure.GetStats(data.pressure, SensorTypes::In);
+			m_stats_in.temperature.GetStats(data.temperature, sensorType);
+			m_stats_in.humidity.GetStats(data.humidity, sensorType);
+			m_stats_in.pressure.GetStats(data.pressure, sensorType);
 			return;
 		}
 
-		m_stats_out.temperature.GetStats(data.temperature, SensorTypes::Out);
-		m_stats_out.humidity.GetStats(data.humidity, SensorTypes::Out);
-		m_stats_out.pressure.GetStats(data.pressure, SensorTypes::Out);
+		m_stats_out.temperature.GetStats(data.temperature, sensorType);
+		m_stats_out.humidity.GetStats(data.humidity, sensorType);
+		m_stats_out.pressure.GetStats(data.pressure, sensorType);
 	}
 
-	// TODO: не должен знать in или out
 	class StatsItem
 	{
 	public:

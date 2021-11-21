@@ -3,7 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <climits>
-#include "Observer.h"
+#include "Observable.h"
 
 struct SWeatherInfo
 {
@@ -14,11 +14,11 @@ struct SWeatherInfo
 
 class CWeatherData : public CObservable<SWeatherInfo>
 {
-public:
+public:	
 	CWeatherData(SensorTypes type)
-		: m_type(type)
+		: CObservable(type)
 	{}
-	
+
 	double GetTemperature()const
 	{
 		return m_temperature;
@@ -34,7 +34,7 @@ public:
 
 	void MeasurementsChanged()
 	{
-		NotifyObservers(m_type);
+		NotifyObservers();
 	}
 
 	void SetMeasurements(double temp, double humidity, double pressure)
@@ -56,8 +56,6 @@ protected:
 		return info;
 	}
 private:
-	SensorTypes m_type;
-
 	double m_temperature = 0.0;
 	double m_humidity = 0.0;
 	double m_pressure = 760.0;
