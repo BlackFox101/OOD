@@ -5,6 +5,7 @@
 #include "../Designer/CShapeFactory.h"
 #include "../Designer/CDesigner.h"
 #include "../Designer/CPainter.h"
+#include "../Designer/CClient.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ bool operator==(const Point& left, const Point& right)
 	return left.x == right.x && left.y == right.y;
 }
 
-/*TEST_CASE("Create Color")
+TEST_CASE("Create Color")
 {
 	WHEN("Read color from string")
 	{
@@ -53,6 +54,7 @@ bool operator==(const Point& left, const Point& right)
 			CHECK_THROWS(GetColorFromString("blackk"));
 		}
 	}
+
 	WHEN("Write color to output")
 	{
 		THEN("Green")
@@ -102,49 +104,48 @@ bool operator==(const Point& left, const Point& right)
 
 TEST_CASE("Create shapes")
 {
-	WHEN("Create Rectangle")
+	CShapeFactory shapeFactory;
+	THEN("Ok")
 	{
-		//Rectangle format: <x1> <y1> <x2> <y2> <color>
-		CShapeFactory shapeFactory;
-		THEN("Ok")
-		{
-			auto shape = shapeFactory.CreateShape("rectangle 0 0 10 15 green");
-			CRectangle& rectangle = dynamic_cast<CRectangle &>(*shape);
-			CHECK(rectangle.GetLeftTop() == Point(0, 10));
-			CHECK(rectangle.GetRightBottom() == Point(0, 15));
-			CHECK(rectangle.GetColor() == Color::Green);
+		auto shape = shapeFactory.CreateShape("rectangle 0 15 10 0 green");
+		CRectangle& rectangle = dynamic_cast<CRectangle &>(*shape);
+		CHECK(rectangle.GetLeftTop() == Point(0, 15));
+		CHECK(rectangle.GetRightBottom() == Point(10, 0));
+		CHECK(rectangle.GetColor() == Color::Green);
 
-			shape = shapeFactory.CreateShape("triangle 5 5 0 0 -3 -3 black");
-			CTriangle& triangle = dynamic_cast<CTriangle&>(*shape);
-			CHECK(triangle.GetVertex1() == Point(5, 5));
-			CHECK(triangle.GetVertex2() == Point(0, 0));
-			CHECK(triangle.GetVertex3() == Point(-3, -3));
-			CHECK(triangle.GetColor() == Color::Black);
+		shape = shapeFactory.CreateShape("triangle 5 5 0 0 -3 -3 black");
+		CTriangle& triangle = dynamic_cast<CTriangle&>(*shape);
+		CHECK(triangle.GetVertex1() == Point(5, 5));
+		CHECK(triangle.GetVertex2() == Point(0, 0));
+		CHECK(triangle.GetVertex3() == Point(-3, -3));
+		CHECK(triangle.GetColor() == Color::Black);
 
-			shape = shapeFactory.CreateShape("ellipse 0 0 5 10 blue");
-			CEllipse& ellipse = dynamic_cast<CEllipse&>(*shape);
-			CHECK(ellipse.GetCenter() == Point(0, 0));
-			CHECK(ellipse.GetHorizontalRadius() == 5);
-			CHECK(ellipse.GetVerticalRadius() == 10);
-			CHECK(ellipse.GetColor() == Color::Blue);
+		shape = shapeFactory.CreateShape("ellipse 0 0 5 10 blue");
+		CEllipse& ellipse = dynamic_cast<CEllipse&>(*shape);
+		CHECK(ellipse.GetCenter() == Point(0, 0));
+		CHECK(ellipse.GetHorizontalRadius() == 5);
+		CHECK(ellipse.GetVerticalRadius() == 10);
+		CHECK(ellipse.GetColor() == Color::Blue);
 
-			shape = shapeFactory.CreateShape("regularPolygon 5 0 0 5 pink");
-			CRegularPolygon& regularPolygon = dynamic_cast<CRegularPolygon&>(*shape);
-			CHECK(regularPolygon.GetVertexCount() == 5);
-			CHECK(regularPolygon.GetCenter() == Point(0, 0));
-			CHECK(regularPolygon.GetRadius() == 5);
-			CHECK(regularPolygon.GetColor() == Color::Pink);
-		}
-		THEN("Invalid format")
-		{
-			CHECK_THROWS(shapeFactory.CreateShape("rectangle 0  10 15 green"));
+		shape = shapeFactory.CreateShape("regularPolygon 5 0 0 5 pink");
+		CRegularPolygon& regularPolygon = dynamic_cast<CRegularPolygon&>(*shape);
+		CHECK(regularPolygon.GetVertexCount() == 5);
+		CHECK(regularPolygon.GetCenter() == Point(0, 0));
+		CHECK(regularPolygon.GetRadius() == 5);
+		CHECK(regularPolygon.GetColor() == Color::Pink);
+	}
 
-			CHECK_THROWS(shapeFactory.CreateShape("triangle 5 5 0  -3 -3 black"));
+	THEN("Invalid format")
+	{
+		CHECK_THROWS(shapeFactory.CreateShape("rectangle 0 0 10 15 green"));
 
-			CHECK_THROWS(shapeFactory.CreateShape("ellipse 0 0  10 blue"));
+		CHECK_THROWS(shapeFactory.CreateShape("rectangle 0  10 15 green"));
 
-			CHECK_THROWS(shapeFactory.CreateShape("regularPolygon 5 0 5 pink"));
-		}
+		CHECK_THROWS(shapeFactory.CreateShape("triangle 5 5 0  -3 -3 black"));
+
+		CHECK_THROWS(shapeFactory.CreateShape("ellipse 0 0  10 blue"));
+
+		CHECK_THROWS(shapeFactory.CreateShape("regularPolygon 5 0 5 pink"));
 	}
 }
 
@@ -174,6 +175,7 @@ TEST_CASE("SVG Canvas")
 			"\t<line x1=\"0\" y1=\"0\" x2=\"100\" y2=\"100\" stroke=\"black\" />\n"                                                          
 			"</svg>\n");
 	}
+
 	WHEN("DrawEllipse")
 	{
 		ostringstream output;
@@ -182,10 +184,40 @@ TEST_CASE("SVG Canvas")
 			canvas.DrawEllipse(Point(100, 100), 50, 50);
 		}
 		CHECK(output.str() == "<svg xmlns = \"http://www.w3.org/2000/svg\" width = \"1500px\" height = \"700px\">\n"
-			"\t<ellipse cx=\"100\" cy=\"100\" rx=\"50\" ry=\"50\" />\n"
+			"\t<ellipse cx=\"100\" cy=\"100\" rx=\"50\" ry=\"50\" stroke=\"black\" fill=\"none\" />\n"
 			"</svg>\n");
 	}
-}*/
+}
+
+TEST_CASE("Picture draft")
+{
+	istringstream input("rectangle 0 10 20 0 black");
+	WHEN("Add shape")
+	{
+		CPictureDraft draft;
+		draft.AddShape(make_shared<CRectangle>(Color::Black, Point(0, 10), Point(10, 0)));
+		CHECK(draft.GetShapeCount() == 1);
+
+		draft.AddShape(make_shared<CRectangle>(Color::Red, Point(0, 10), Point(10, 0)));
+		CHECK(draft.GetShapeCount() == 2);
+	}
+
+	WHEN("Get shape")
+	{
+		CPictureDraft draft;
+
+		draft.AddShape(make_shared<CRectangle>(Color::Black, Point(0, 10), Point(10, 0)));
+		draft.AddShape(make_shared<CTriangle>(Color::Red, Point(0, 0), Point(15, 0), Point(8, 15)));
+
+		shared_ptr<CShape> shape1 = draft.GetShape(0);
+		REQUIRE(shape1->GetName() == "Rectangle");
+
+		shared_ptr<CShape> shape2 = draft.GetShape(1);
+		REQUIRE(shape2->GetName() == "Triangle");
+
+		CHECK_THROWS(draft.GetShape(2));
+	}
+}
 
 TEST_CASE("Draw shapes")
 {
@@ -208,6 +240,7 @@ TEST_CASE("Draw shapes")
 			"\t<line x1=\"0\" y1=\"10\" x2=\"0\" y2=\"0\" stroke=\"black\" />\n"
 			"</svg>\n");
 	}
+
 	WHEN("Draw triangle")
 	{
 		ostringstream output;
@@ -226,6 +259,7 @@ TEST_CASE("Draw shapes")
 				"\t<line x1=\"0\" y1=\"10\" x2=\"0\" y2=\"0\" stroke=\"black\" />\n"
 			"</svg>\n");
 	}
+
 	WHEN("Draw ellipse")
 	{
 		ostringstream output;
@@ -239,13 +273,14 @@ TEST_CASE("Draw shapes")
 			shape->Draw(canvas);
 		}
 		CHECK(output.str() == "<svg xmlns = \"http://www.w3.org/2000/svg\" width = \"1500px\" height = \"700px\">\n"
-				"\t<ellipse cx=\"10\" cy=\"10\" rx=\"5\" ry=\"5\" style=\"fill:black\" />\n"
+				"\t<ellipse cx=\"10\" cy=\"10\" rx=\"5\" ry=\"5\" stroke=\"black\" fill=\"none\" />\n"
 			"</svg>\n");
 	}
+
 	WHEN("Draw Regular polygon")
 	{
 		ostringstream output;
-		string line = "regularPolygon 4 100 100 30 blue";
+		string line = "regularPolygon 5 100 100 50 blue";
 		{
 			CShapeFactory shapeFactory;
 			CDesigner designer(shapeFactory);
@@ -255,10 +290,11 @@ TEST_CASE("Draw shapes")
 			shape->Draw(canvas);
 		}
 		CHECK(output.str() == "<svg xmlns = \"http://www.w3.org/2000/svg\" width = \"1500px\" height = \"700px\">\n"
-				"\t<line x1=\"70\" y1=\"70\" x2=\"130\" y2=\"70\" stroke=\"black\" />\n"
-				"\t<line x1=\"130\" y1=\"70\" x2=\"130\" y2=\"130\" stroke=\"black\" />\n"
-				"\t<line x1=\"130\" y1=\"130\" x2=\"70\" y2=\"130\" stroke=\"black\" />\n"
-				"\t<line x1=\"70\" y1=\"130\" x2=\"70\" y2=\"70\" stroke=\"black\" />\n"
+			"\t<line x1=\"50\" y1=\"100\" x2=\"84.5492\" y2=\"52.4472\" stroke=\"blue\" />\n"
+			"\t<line x1=\"84.5492\" y1=\"52.4472\" x2=\"140.451\" y2=\"70.6107\" stroke=\"blue\" />\n"
+			"\t<line x1=\"140.451\" y1=\"70.6107\" x2=\"140.451\" y2=\"129.389\" stroke=\"blue\" />\n"
+			"\t<line x1=\"140.451\" y1=\"129.389\" x2=\"84.5492\" y2=\"147.553\" stroke=\"blue\" />\n"
+			"\t<line x1=\"84.5492\" y1=\"147.553\" x2=\"50\" y2=\"100\" stroke=\"blue\" />\n"
 			"</svg>\n");
 	}
 }

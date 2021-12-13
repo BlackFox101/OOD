@@ -4,7 +4,7 @@
 class CRectangle : public CShape
 {
 public:
-	CRectangle(Color color, Point leftTop, Point rightBottom)
+	CRectangle(Color color, const Point& leftTop, const Point& rightBottom)
 		: CShape(color, "Rectangle")
 		, m_leftTop(leftTop)
 		, m_rightBottom(rightBottom)
@@ -21,8 +21,9 @@ public:
 		return m_rightBottom;
 	}
 
-	void Draw(ICanvas& canvas) const override
+	void Draw(ICanvas& canvas) override
 	{
+		canvas.SetColor(GetColor());
 		canvas.DrawLine(Point(m_leftTop.x, m_rightBottom.y), m_rightBottom);
 		canvas.DrawLine(m_rightBottom, Point(m_rightBottom.x, m_leftTop.y));
 		canvas.DrawLine(Point(m_rightBottom.x, m_leftTop.y), m_leftTop);

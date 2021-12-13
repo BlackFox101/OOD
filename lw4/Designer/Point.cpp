@@ -4,7 +4,7 @@
 Point::Point()
 { }
 
-Point::Point(int x, int y)
+Point::Point(double x, double y)
 	: x(x)
 	, y(y)
 {}

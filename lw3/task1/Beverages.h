@@ -38,6 +38,7 @@ public:
 	}
 };
 
+namespace {}
 std::string GetCoffeePortionName(CoffeePortion portion)
 {
 	return std::string(portion == CoffeePortion::Standart ? "Standart" : "Double");
@@ -157,6 +158,7 @@ public:
 		case MilkshakePortion::Big:
 			return 80;
 		default:
+			// TODO: исключение
 			return 60;
 		}
 	}
@@ -175,6 +177,7 @@ private:
 		case MilkshakePortion::Big:
 			return "Big";
 		default:
+			// TODO: исключение
 			return "Average";
 		}
 	}

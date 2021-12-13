@@ -13,6 +13,4 @@ enum class Color
 
 std::ostream& operator<<(std::ostream& stream, const Color& color);
 
-//std::istream& operator>>(std::istream& stream, Color& color);
-
 Color GetColorFromString(std::string strColor);

@@ -4,7 +4,7 @@
 class CEllipse : public CShape
 {
 public:
-	CEllipse(Color color, Point center, int xRadius, int yRadius)
+	CEllipse(Color color, const Point& center, int xRadius, int yRadius)
 		: CShape(color, "Ellipse")
 		, m_center(center)
 		, m_xRadius(xRadius)
@@ -26,8 +26,9 @@ public:
 		return m_yRadius;
 	}
 
-	void Draw(ICanvas& canvas) const override
+	void Draw(ICanvas& canvas) override
 	{
+		canvas.SetColor(GetColor());
 		canvas.DrawEllipse(m_center, m_xRadius, m_yRadius);
 	}
 

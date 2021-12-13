@@ -6,7 +6,8 @@
 class CShape
 {
 public:
-	CShape(Color color, std::string name)
+	// TODO: получать имя по константной ссылке
+	CShape(Color color, const std::string& name)
 		: m_color(color)
 		, m_name(name)
 	{
@@ -22,7 +23,7 @@ public:
 		return m_name;
 	}
 
-	virtual void Draw(ICanvas& canvas) const = 0;
+	virtual void Draw(ICanvas& canvas) = 0;
 
 private:
 	Color m_color;

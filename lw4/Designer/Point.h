@@ -4,9 +4,9 @@
 struct Point
 {
 	Point();
-	Point(int x, int y);
+	Point(double x, double y);
 
-	int x, y;
+	double x, y;
 };
 
 std::istream& operator>>(std::istream& stream, Point& point);

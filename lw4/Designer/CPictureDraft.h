@@ -19,6 +19,11 @@ public:
 
 	std::shared_ptr<CShape> GetShape(int index)
 	{
+		// TODO: добавить исключение
+		if (index >= m_shapes.size() || index < 0)
+		{
+			throw std::out_of_range("Index out of range");
+		}
 		return m_shapes[index];
 	}
 

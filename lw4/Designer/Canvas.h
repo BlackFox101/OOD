@@ -24,7 +24,4 @@ public:
 private:
 	std::ostream& m_output;
 	Color m_color = Color::Black;
-	bool m_isPictureStart = true;
-
-	void SetStartTag();
 };

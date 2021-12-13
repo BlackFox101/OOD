@@ -4,34 +4,39 @@
 
 using namespace std;
 
-const string RECTANGLE = "rectangle";
-const string TRIANGLE = "triangle";
-const string ELLIPSE = "ellipse";
-const string REGULAR_POLYGON = "regularPolygon";
+namespace {
+	const string RECTANGLE = "rectangle";
+	const string TRIANGLE = "triangle";
+	const string ELLIPSE = "ellipse";
+	const string REGULAR_POLYGON = "regularPolygon";
 
-const map<string, string> ShapesInfo 
-{
-	{ RECTANGLE,		"Format: rectangle <x1> <y1> <x2> <y2> <color>\n" },
-	{ TRIANGLE,			"Format: triangle <x1> <y1> <x2> <y2> <x3> <y3> <color>\n" },
-	{ ELLIPSE,			"Format: ellipse <x> <y> <horizontalRadius> <verticalRadius> <color>\n" },
-	{ REGULAR_POLYGON,	"Format: regularPolygon <vertexCount> <x> <y> <radius> <color>\n" },
-};
+	const map<string, string> ShapesInfo
+	{
+		{ RECTANGLE,		"Format: rectangle <x1> <y1> <x2> <y2> <color>\n" },
+		{ TRIANGLE,			"Format: triangle <x1> <y1> <x2> <y2> <x3> <y3> <color>\n" },
+		{ ELLIPSE,			"Format: ellipse <x> <y> <horizontalRadius> <verticalRadius> <color>\n" },
+		{ REGULAR_POLYGON,	"Format: regularPolygon <vertexCount> <x> <y> <radius> <color>\n" },
+	};
+}
 
 shared_ptr<CRectangle> CShapeFactory::CreateRectangle(std::stringstream& shapeDescription)
 {
 	string colorStr;
-	int x1, x2, y1, y2;
-	shapeDescription >> x1 >> y1 >> x2 >> y2 >> colorStr;
+	Point p1, p2;
+	shapeDescription >> p1 >> p2 >> colorStr;
 	if (shapeDescription.fail())
 	{
 		throw invalid_argument(ShapesInfo.at(RECTANGLE));
 	}
 	Color color = GetColorFromString(colorStr);
 
-	Point leftTop(min(x1, x2), max(y1, y2));
-	Point rightBottom(max(x1, x2), min(y1, y2));
+	// TODO: валидация точек
+	if (p1.x > p2.x || p1.y < p2.y)
+	{
+		throw invalid_argument("The upper left point should be to the left and out");
+	}
 
-	return make_shared<CRectangle>(color, leftTop, rightBottom);
+	return make_shared<CRectangle>(color, p1, p2);
 }
 
 shared_ptr<CTriangle> CShapeFactory::CreateTriangle(std::stringstream& shapeDescription)

@@ -3,7 +3,7 @@
 class CTriangle : public CShape
 {
 public:
-	CTriangle(Color color, Point a, Point b, Point c)
+	CTriangle(Color color, const Point& a, const Point& b, const Point& c)
 		: CShape(color, "Triangle")
 		, m_vertex1(a)
 		, m_vertex2(b)
@@ -26,8 +26,9 @@ public:
 		return m_vertex3;
 	}
 
-	void Draw(ICanvas& canvas) const override
+	void Draw(ICanvas& canvas) override
 	{
+		canvas.SetColor(GetColor());
 		canvas.DrawLine(m_vertex1, m_vertex2);
 		canvas.DrawLine(m_vertex2, m_vertex3);
 		canvas.DrawLine(m_vertex3, m_vertex1);

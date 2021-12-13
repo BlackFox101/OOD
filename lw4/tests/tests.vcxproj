@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Designer\Canvas.cpp" />
+    <ClCompile Include="..\Designer\CClient.cpp" />
     <ClCompile Include="..\Designer\CDesigner.cpp" />
     <ClCompile Include="..\Designer\Color.cpp" />
     <ClCompile Include="..\Designer\CPainter.cpp" />
