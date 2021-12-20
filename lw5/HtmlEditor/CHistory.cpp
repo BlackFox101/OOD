@@ -52,6 +52,11 @@ void CHistory::AddAndExecuteCommand(ICommandPtr&& command)
 			command->Execute();
 			m_commands.back() = move(command);
 			++m_nextCommandIndex;
+			if (m_nextCommandIndex > MAX_COMMANDS_IN_HISTORY)
+			{
+				m_commands.erase(m_commands.begin());
+				m_nextCommandIndex--;
+			}
 		}
 		catch (...)
 		{

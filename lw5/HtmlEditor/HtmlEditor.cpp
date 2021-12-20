@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "HtmlEditor.h"
 
-using namespace std::placeholders;
+using namespace std;
+using namespace placeholders;
 
 HtmlEditor::HtmlEditor()
 	: m_document(make_unique<Document>())
@@ -11,12 +12,13 @@ HtmlEditor::HtmlEditor()
 	AddMenuItem("setTitle", "Changes title. Args: <new title>", &HtmlEditor::SetTitle);
 	AddMenuItem("list", "Show document", &HtmlEditor::List);
 	AddMenuItem("replaceText", "Replace text. Args: <position> <paragraph text>", &HtmlEditor::ReplaceText);
-	AddMenuItem("resizeImage ", "Resize image. Args: <position> <width> <height>", &HtmlEditor::ResizeImage);
-	AddMenuItem("deleteItem ", "Delete item. Args: <position>", &HtmlEditor::DeleteItem);
+	AddMenuItem("resizeImage", "Resize image. Args: <position> <width> <height>", &HtmlEditor::ResizeImage);
+	AddMenuItem("deleteItem", "Delete item. Args: <position>", &HtmlEditor::DeleteItem);
 	AddMenuItem("help", "Help", &HtmlEditor::Help);
 	AddMenuItem("undo", "Undo command", &HtmlEditor::Undo);
 	AddMenuItem("redo", "Redo undone command", &HtmlEditor::Redo);
 	AddMenuItem("save", "Save", &HtmlEditor::Save);
+	AddMenuItem("exit", "Exit", &HtmlEditor::Exit);
 }
 
 void HtmlEditor::Start()
@@ -31,10 +33,21 @@ void HtmlEditor::AddMenuItem(const string& shortcut, const string& description, 
 
 void HtmlEditor::InsertParagraph(istream& in)
 {
-	string position, text;
+	string position;
 	in >> position;
-	getline(in, text);
-	if (in.fail() || text == "")
+	if (in.fail())
+	{
+		throw invalid_argument("Not enough arguments");
+	}
+
+	string head;
+	string tail;
+	if (in >> head)
+	{
+		getline(in, tail);
+	}
+	string text = head + tail;
+	if (text == "")
 	{
 		throw invalid_argument("Not enough arguments");
 	}
@@ -53,8 +66,7 @@ void HtmlEditor::InsertImage(istream& in)
 		throw invalid_argument("Not enough arguments");
 	}
 
-	CImageSize imageSize(width, height);
-	m_document->InsertImage(filePath, imageSize, GetPosition(position));
+	m_document->InsertImage(filePath, width, height, GetPosition(position));
 }
 
 void HtmlEditor::SetTitle(istream& in)
@@ -78,18 +90,17 @@ void HtmlEditor::List(istream&)
 	{
 		cout << i << ". ";
 		auto documentItem = m_document->GetItem(i);
-		auto paragraph = documentItem.GetParagraph();
+		auto paragraph = documentItem->GetParagraph();
 		if (paragraph)
 		{
 			cout << "Paragraph: " << paragraph->GetText() << endl;
 			continue;
 		}
 
-		auto image = documentItem.GetImage();
+		auto image = documentItem->GetImage();
 		if (image)
 		{
 			Path path = image->GetPath();
-			// TODO: переделать пути файла
 			cout << "Image: " << image->GetWidth() << " " << image->GetHeight() << " " << path.string()<< endl;
 		}
 	}
@@ -136,7 +147,7 @@ void HtmlEditor::ReplaceText(istream& in)
 	}
 
 	auto documentItem = m_document->GetItem(position);
-	auto paragraph = documentItem.GetParagraph();
+	auto paragraph = documentItem->GetParagraph();
 	if (!paragraph)
 	{
 		throw invalid_argument("This is not a paragraph");
@@ -156,7 +167,7 @@ void HtmlEditor::ResizeImage(istream& in)
 	}
 
 	auto documentItem = m_document->GetItem(position);
-	auto image = documentItem.GetImage();
+	auto image = documentItem->GetImage();
 	if (!image)
 	{
 		throw invalid_argument("This is not a image");
@@ -178,8 +189,28 @@ void HtmlEditor::DeleteItem(istream& in)
 	m_document->DeleteItem(position);
 }
 
+void HtmlEditor::Exit(istream& in)
+{
+	m_menu.Exit();
+}
+
 void HtmlEditor::Save(istream& in)
 {
+	string head;
+	string tail;
+
+	if (in >> head)
+	{
+		getline(in, tail);
+	}
+	string str = head + tail;
+	if (str == "")
+	{
+		throw invalid_argument("Not enough arguments");
+	}
+
+	Path path(str);
+	m_document->Save(path);
 }
 
 optional<size_t> HtmlEditor::GetPosition(string stringPosition)

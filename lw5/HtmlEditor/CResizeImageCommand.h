@@ -5,7 +5,7 @@
 class CResizeImageCommand : public CAbstractCommand
 {
 public:
-	CResizeImageCommand(CImageSize& currentSize, CImageSize& newSize);
+	CResizeImageCommand(CImageSize& currentSize, const CImageSize& newSize);
 protected:
 	void DoExecute() override;
 	void DoUnexecute() override;

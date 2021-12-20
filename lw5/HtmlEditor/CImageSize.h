@@ -7,10 +7,11 @@ public:
 	static const int IMAGE_SIZE_MIN = 1;
 
 	CImageSize(int width, int height);
+	CImageSize();
 	int GetWidth() const;
-	int Getheight() const;
+	int GetHeight() const;
 private:
-	int m_width, m_height;
+	int m_width = 0, m_height = 0;
 
 	static bool IsValidSize(int width);
 };

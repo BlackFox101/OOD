@@ -2,6 +2,8 @@
 #include "stdafx.h"
 #include "CImageSize.h"
 
+typedef std::filesystem::path Path;
+
 /* Изображение */
 class IImage
 {

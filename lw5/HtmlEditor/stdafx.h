@@ -12,5 +12,3 @@
 #include <optional>
 #include <filesystem>
 #include <set>
-
-typedef std::filesystem::path Path;

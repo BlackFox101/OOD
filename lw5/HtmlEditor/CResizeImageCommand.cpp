@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CResizeImageCommand.h"
 
-CResizeImageCommand::CResizeImageCommand(CImageSize& currentSize, CImageSize& newSize)
+CResizeImageCommand::CResizeImageCommand(CImageSize& currentSize, const CImageSize& newSize)
 	: m_currentSize(currentSize)
 	, m_newSize(newSize)
 {

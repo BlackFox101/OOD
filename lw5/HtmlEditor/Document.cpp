@@ -3,6 +3,8 @@
 #include "Paragraph.h"
 #include "CInsertDocumentItemCommand.h"
 #include "CChangeStringCommand.h"
+#include "CDeleteDocumentItemCommand.h"
+#include <fstream>
 
 using namespace std;
 
@@ -15,12 +17,12 @@ shared_ptr<IParagraph> Document::InsertParagraph(const string& text, optional<si
 	}
 
 	shared_ptr<IParagraph> paragrath = make_shared<Paragraph>(m_history, text);
-	CDocumentItem documentItem(paragrath);
+	shared_ptr<CDocumentItem> documentItem = make_shared<CDocumentItem>(paragrath);
 	m_history.AddAndExecuteCommand(make_unique<CInsertDocumentItemCommand>(m_items, documentItem, pos));
 	return paragrath;
 }
 
-shared_ptr<IImage> Document::InsertImage(const Path& path, CImageSize& size, optional<size_t> position)
+shared_ptr<IImage> Document::InsertImage(const Path& path, int width, int height, optional<size_t> position)
 {
 	size_t pos = position.value_or(m_items.size());
 	if (pos > m_items.size())
@@ -28,8 +30,8 @@ shared_ptr<IImage> Document::InsertImage(const Path& path, CImageSize& size, opt
 		throw invalid_argument("Wrong position");
 	}
 
-	shared_ptr<IImage> image = make_shared<Image>(m_history, path, size);
-	CDocumentItem documentItem(image);
+	shared_ptr<IImage> image = make_shared<Image>(m_history, path, width, height);
+	shared_ptr<CDocumentItem> documentItem = make_shared<CDocumentItem>(image);
 	m_history.AddAndExecuteCommand(make_unique<CInsertDocumentItemCommand>(m_items, documentItem, pos));
 	return image;
 	
@@ -40,7 +42,7 @@ size_t Document::GetItemsCount() const
 	return m_items.size();
 }
 
-CConstDocumentItem Document::GetItem(size_t index) const
+shared_ptr<CConstDocumentItem> Document::GetItem(size_t index) const
 {
 	if (index >= m_items.size() || index < 0)
 	{
@@ -50,7 +52,7 @@ CConstDocumentItem Document::GetItem(size_t index) const
 	return m_items[index];
 }
 
-CDocumentItem Document::GetItem(size_t index)
+shared_ptr<CDocumentItem> Document::GetItem(size_t index)
 {
 	if (index >= m_items.size() || index < 0)
 	{
@@ -64,7 +66,7 @@ void Document::DeleteItem(size_t index)
 {
 	auto documentItem = GetItem(index);
 
-	m_history.AddAndExecuteCommand(make_unique<CInsertDocumentItemCommand>(m_items, documentItem, index));
+	m_history.AddAndExecuteCommand(make_unique<CDeleteDocumentItemCommand>(m_items, documentItem, index));
 }
 
 string Document::GetTitle() const
@@ -99,5 +101,71 @@ void Document::Redo()
 
 void Document::Save(const Path& path) const
 {
-	// TODO: make an implementation
+	setlocale(LC_ALL, "Russian");
+	cout << path << endl;
+	ofstream html;
+	html.open(path.string() + "index.html");
+	html << "<!DOCTYPE html>\n";
+	html << "<html lang=\"en\">\n";
+	html << "<head>\n";
+	html << "  <title>" + EncodingHTMLCharacters(GetTitle()) + "</title>\n";
+	html << "</head>\n";
+	html << "<body>\n";
+
+	for (auto item : m_items)
+	{
+		html << "  ";
+
+		auto paragraph = item->GetParagraph();
+		if (paragraph)
+		{
+			html << "<p>" << EncodingHTMLCharacters(paragraph->GetText()) << "</p>\n";
+			continue;
+		}
+
+		auto image = item->GetImage();
+		if (image)
+		{
+			html << "<img src=\"" << EncodingHTMLCharacters(image->GetPath().string()) << "\" "
+					"width=\"" << image->GetWidth() << "\" "
+					"height=\"" << image->GetHeight() << "\">\n";
+
+			string dir = path.string() + IMAGE_DIRECTORY_NAME + '/';
+			Path newPath(dir + image->GetPath().filename().string());
+			filesystem::create_directory(dir);
+			filesystem::copy_file(image->GetPath(), newPath, filesystem::copy_options::overwrite_existing);
+		}
+	}
+	html << "</body>\n";
+	html << "</html>\n";
 }
+
+string Document::EncodingHTMLCharacters(const string& str)
+{
+	string encodingStr;
+	for (char item : str)
+	{
+		switch (item)
+		{
+		case '<':
+			encodingStr += "&lt;";
+			continue;
+		case '>':
+			encodingStr += "&gt;";
+			continue;
+		case '"':
+			encodingStr += "&quot;";
+			continue;
+		case '\'':
+			encodingStr += "&#x60;";
+			continue;
+		case '&':
+			encodingStr += "&amp;";
+			continue;
+		default:
+			encodingStr += item;
+		}
+	}
+	return encodingStr;
+}
+

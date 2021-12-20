@@ -14,16 +14,8 @@ void CMenu::Run()
 
 	string command;
 	while ((cout << ">")
-		&& getline(cin, command))
+		&& getline(cin, command) && ExecuteCommand(command))
 	{
-		try
-		{
-			ExecuteCommand(command);
-		}
-		catch (const std::exception& e)
-		{
-			cout << e.what() << endl;
-		}
 	}
 }
 
@@ -54,7 +46,14 @@ bool CMenu::ExecuteCommand(const std::string& command)
 
 	if (it != m_items.end())
 	{
-		it->command(iss);
+		try
+		{
+			it->command(iss);
+		}
+		catch (const std::exception& e)
+		{
+			cout << e.what() << endl;
+		}
 	}
 	else
 	{

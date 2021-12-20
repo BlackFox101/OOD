@@ -27,6 +27,7 @@ private:
 	void ResizeImage(istream& in);
 	void DeleteItem(istream& in);
 	void Save(istream& in);
+	void Exit(istream& in);
 
 	CMenu m_menu;
 	unique_ptr<IDocument> m_document;

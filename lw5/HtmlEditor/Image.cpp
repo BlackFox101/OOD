@@ -5,9 +5,8 @@
 
 using namespace std;
 
-Image::Image(CHistory& history, const Path& path, CImageSize& size)
+Image::Image(CHistory& history, const Path& path, int width, int height)
     : m_history(history)
-    , m_size(size)
 {
     if (!filesystem::exists(path))
     {
@@ -23,6 +22,7 @@ Image::Image(CHistory& history, const Path& path, CImageSize& size)
     CheckImageSizeInPixels(path);
     Path newPath = SaveFileToDirectory(path);
 
+    m_size = { width, height };
     m_path = newPath;
 }
 
@@ -38,7 +38,7 @@ int Image::GetWidth() const
 
 int Image::GetHeight() const
 {
-    return m_size.Getheight();
+    return m_size.GetHeight();
 }
 
 void Image::Resize(CImageSize size)
@@ -48,14 +48,22 @@ void Image::Resize(CImageSize size)
 
 Path Image::SaveFileToDirectory(const Path& path)
 {
-    // TODO: сохранение файла в свою директорию
-    return path;
+    Path newPath(IMAGE_DIRECTORY_PATH + GenerateFileName() + path.extension().string());
+
+    filesystem::create_directory(IMAGE_DIRECTORY_PATH);
+    filesystem::copy_file(path, newPath, filesystem::copy_options::overwrite_existing);
+    return newPath;
 }
 
 string Image::GenerateFileName()
 {
-    // TODO: создание имени файла
-    return "";
+    string chars = "1234567890AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
+    string name;
+    for (int i = 0; i < 10; i++)
+    {
+        name += chars[rand() % chars.size()];
+    }
+    return name;
 }
 
 void Image::CheckImageSizeInPixels(const Path& path)

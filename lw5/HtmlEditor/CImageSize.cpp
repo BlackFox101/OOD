@@ -12,12 +12,16 @@ CImageSize::CImageSize(int width, int height)
 	m_height = height;
 }
 
+CImageSize::CImageSize()
+{
+}
+
 int CImageSize::GetWidth() const
 {
 	return m_width;
 }
 
-int CImageSize::Getheight() const
+int CImageSize::GetHeight() const
 {
 	return m_height;
 }

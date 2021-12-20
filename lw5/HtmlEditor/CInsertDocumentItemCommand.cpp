@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CInsertDocumentItemCommand.h"
 
-CInsertDocumentItemCommand::CInsertDocumentItemCommand(vector<CDocumentItem>& items, CDocumentItem& item, size_t position)
+CInsertDocumentItemCommand::CInsertDocumentItemCommand(vector<shared_ptr<CDocumentItem>>& items, const shared_ptr<CDocumentItem>& item, size_t position)
 	: m_items(items)
 	, m_item(item)
 	, m_position(position)

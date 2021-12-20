@@ -19,15 +19,15 @@ public:
 	// Параметр path задает путь к вставляемому изображению
 	// При вставке изображение должно копироваться в подкаталог images 
 	// под автоматически сгенерированным именем
-	virtual shared_ptr<IImage> InsertImage(const Path& path, CImageSize& size,
+	virtual shared_ptr<IImage> InsertImage(const Path& path, int width, int height,
 		optional<size_t> position = nullopt) = 0;
 
 	// Возвращает количество элементов в документе
 	virtual size_t GetItemsCount()const = 0;
 
 	// Доступ к элементам изображения
-	virtual CConstDocumentItem GetItem(size_t index)const = 0;
-	virtual CDocumentItem GetItem(size_t index) = 0;
+	virtual shared_ptr<CConstDocumentItem> GetItem(size_t index)const = 0;
+	virtual shared_ptr<CDocumentItem> GetItem(size_t index) = 0;
 
 	// Удаляет элемент из документа
 	virtual void DeleteItem(size_t index) = 0;

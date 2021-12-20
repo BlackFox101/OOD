@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CDeleteDocumentItemCommand.h"
 
-CDeleteDocumentItemCommand::CDeleteDocumentItemCommand(vector<CDocumentItem>& items, CDocumentItem& item, size_t position)
+CDeleteDocumentItemCommand::CDeleteDocumentItemCommand(vector<shared_ptr<CDocumentItem>>& items, const shared_ptr<CDocumentItem>& item, size_t position)
 	: m_items(items)
 	, m_item(item)
 	, m_position(position)

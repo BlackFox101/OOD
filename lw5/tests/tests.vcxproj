@@ -141,8 +141,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\HtmlEditor\CAbstractCommand.cpp" />
+    <ClCompile Include="..\HtmlEditor\CChangeStringCommand.cpp" />
+    <ClCompile Include="..\HtmlEditor\CConstDocumentItem.cpp" />
+    <ClCompile Include="..\HtmlEditor\CDeleteDocumentItemCommand.cpp" />
+    <ClCompile Include="..\HtmlEditor\CDocumentItem.cpp" />
+    <ClCompile Include="..\HtmlEditor\CHistory.cpp" />
     <ClCompile Include="..\HtmlEditor\CImageSize.cpp" />
+    <ClCompile Include="..\HtmlEditor\CInsertDocumentItemCommand.cpp" />
+    <ClCompile Include="..\HtmlEditor\CResizeImageCommand.cpp" />
+    <ClCompile Include="..\HtmlEditor\Document.cpp" />
+    <ClCompile Include="..\HtmlEditor\Image.cpp" />
+    <ClCompile Include="..\HtmlEditor\Paragraph.cpp" />
     <ClCompile Include="tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\HtmlEditor\CDeleteDocumentItemCommand.h" />
+    <ClInclude Include="..\HtmlEditor\CDocumentItem.h" />
+    <ClInclude Include="..\HtmlEditor\CHistory.h" />
+    <ClInclude Include="..\HtmlEditor\CImageSize.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
