@@ -22,6 +22,9 @@
 
 using namespace std;
 
+// WHEN - когда
+// THEN - результат
+
 bool operator==(const CImageSize& left, const CImageSize& right)
 {
 	return left.GetWidth() == right.GetWidth()
@@ -32,13 +35,13 @@ TEST_CASE("CImageSize")
 {
 	WHEN("Checking create")
 	{
-		CHECK_NOTHROW(CImageSize(100, 1));
-		CHECK_THROWS(CImageSize(101, 1));
+		CHECK_NOTHROW(CImageSize(10000, 1));
+		CHECK_THROWS(CImageSize(10001, 1));
 		CHECK_THROWS(CImageSize(0, 1));
 		CHECK_NOTHROW(CImageSize(1, 1));
 
-		CHECK_NOTHROW(CImageSize(1, 100));
-		CHECK_THROWS(CImageSize(1, 101));
+		CHECK_NOTHROW(CImageSize(1, 10000));
+		CHECK_THROWS(CImageSize(1, 10001));
 		CHECK_THROWS(CImageSize(1, 0));
 		CHECK_NOTHROW(CImageSize(1, 1));
 	}
@@ -73,6 +76,16 @@ TEST_CASE("Image")
 		Path path("../image.jpg1");
 		CHECK_THROWS(Image(histoty, path, 100 ,1));
 	}
+
+	WHEN("Resize")
+	{
+		Path path("../image.jpg");
+		Image image(histoty, path, 100, 1);
+		CImageSize size(10, 70);
+		image.Resize(size);
+		CHECK(image.GetWidth() == 10);
+		CHECK(image.GetHeight() == 70);
+	}
 }
 
 TEST_CASE("Paragraph")
@@ -82,6 +95,11 @@ TEST_CASE("Paragraph")
 	{
 		Paragraph paragraph(histoty, "text");
 		CHECK(paragraph.GetText() == "text");
+	}
+
+	WHEN("ReplaceText")
+	{
+		Paragraph paragraph(histoty, "text");
 		paragraph.SetText("12345");
 		CHECK(paragraph.GetText() == "12345");
 	}
@@ -292,7 +310,7 @@ TEST_CASE("CDeleteDocumentItemCommand")
 		items.emplace(items.begin(), newItem);
 
 		auto deletedItem = items[0];
-		CDeleteDocumentItemCommand deleteCommand(items, deletedItem, 0);
+		CDeleteDocumentItemCommand deleteCommand(items, 0);
 		CHECK(items.size() == 1);
 		CHECK(items[0] == deletedItem);
 		deleteCommand.Execute();
@@ -310,7 +328,7 @@ TEST_CASE("CDeleteDocumentItemCommand")
 		items.emplace(items.begin(), newItem);
 
 		auto deletedItem = items[0];
-		CDeleteDocumentItemCommand deleteCommand(items, deletedItem, 0);
+		CDeleteDocumentItemCommand deleteCommand(items, 0);
 		deleteCommand.Execute();
 		deleteCommand.Execute();
 		CHECK(items.size() == 0);
@@ -324,7 +342,7 @@ TEST_CASE("CDeleteDocumentItemCommand")
 		items.emplace(items.begin(), newItem);
 
 		auto deletedItem = items[0];
-		CDeleteDocumentItemCommand deleteCommand(items, deletedItem, 0);
+		CDeleteDocumentItemCommand deleteCommand(items, 0);
 		deleteCommand.Execute();
 		deleteCommand.Unexecute();
 		deleteCommand.Unexecute();
@@ -441,6 +459,18 @@ TEST_CASE("Document")
 		auto image = item->GetImage();
 		CHECK(image->GetWidth() == 100);
 		CHECK(image->GetHeight() == 50);
+	}
+
+	WHEN("Delete Image file when he is not in history")
+	{
+		Document document;
+		Path path("../image.jpg");
+		document.InsertImage(path, 100, 50);
+		auto imagePath = document.GetItem(0)->GetImage()->GetPath();
+		REQUIRE(filesystem::exists(imagePath));
+		document.Undo();
+		document.InsertParagraph("text");
+		CHECK(!filesystem::exists(imagePath));
 	}
 
 	WHEN("Delete Item")

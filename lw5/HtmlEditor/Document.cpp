@@ -64,9 +64,7 @@ shared_ptr<CDocumentItem> Document::GetItem(size_t index)
 
 void Document::DeleteItem(size_t index)
 {
-	auto documentItem = GetItem(index);
-
-	m_history.AddAndExecuteCommand(make_unique<CDeleteDocumentItemCommand>(m_items, documentItem, index));
+	m_history.AddAndExecuteCommand(make_unique<CDeleteDocumentItemCommand>(m_items, index));
 }
 
 string Document::GetTitle() const

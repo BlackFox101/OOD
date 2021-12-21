@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "HtmlEditor.h"
 
 int main()

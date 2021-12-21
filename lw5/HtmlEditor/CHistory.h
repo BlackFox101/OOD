@@ -2,14 +2,20 @@
 #include "stdafx.h"
 #include "ICommand.h"
 
-class CHistory
+class IHistory
 {
 public:
-	bool CanUndo()const;
+	virtual void AddAndExecuteCommand(ICommandPtr&& command) = 0;
+};
+
+class CHistory : public IHistory
+{
+public:
+	bool CanUndo() const;
 	void Undo();
-	bool CanRedo()const;
+	bool CanRedo() const;
 	void Redo();
-	void AddAndExecuteCommand(ICommandPtr&& command);
+	void AddAndExecuteCommand(ICommandPtr&& command) override;
 
 private:
 	const int MAX_COMMANDS_IN_HISTORY = 10;

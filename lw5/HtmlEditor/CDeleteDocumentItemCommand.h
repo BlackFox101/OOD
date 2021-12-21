@@ -7,7 +7,8 @@ using namespace std;
 class CDeleteDocumentItemCommand : public CAbstractCommand
 {
 public:
-	CDeleteDocumentItemCommand(vector<shared_ptr<CDocumentItem>>& items, const shared_ptr<CDocumentItem>& item, size_t position);
+	//TODO: не пеедавать удал€емый элемент, а вз€ть напр€мую
+	CDeleteDocumentItemCommand(vector<shared_ptr<CDocumentItem>>& items, size_t position);
 
 protected:
 	void DoExecute() override;

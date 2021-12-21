@@ -6,17 +6,20 @@
 
 typedef std::filesystem::path Path;
 
+// TODO: при отсутсвии картинки в истории команды, она должна быть удалена
+// TODO: вместо history передавать интерфейс
 class Image : public IImage
 {
 public:
-	Image(CHistory& history, const Path& path, int width, int height);
+	Image(IHistory& history, const Path& path, int width, int height);
+	~Image();
 	Path GetPath() const override;
 	int GetWidth() const override;
 	int GetHeight() const override;
 	void Resize(CImageSize size) override;
 
 private:
-	CHistory& m_history;
+	IHistory& m_history;
 	Path m_path;
 	CImageSize m_size;
 	const std::string IMAGE_DIRECTORY_PATH = "./images/";

@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Image::Image(CHistory& history, const Path& path, int width, int height)
+Image::Image(IHistory& history, const Path& path, int width, int height)
     : m_history(history)
 {
     if (!filesystem::exists(path))
@@ -24,6 +24,11 @@ Image::Image(CHistory& history, const Path& path, int width, int height)
 
     m_size = { width, height };
     m_path = newPath;
+}
+
+Image::~Image()
+{
+    filesystem::remove(m_path);
 }
 
 Path Image::GetPath() const
@@ -69,4 +74,5 @@ string Image::GenerateFileName()
 void Image::CheckImageSizeInPixels(const Path& path)
 {
     // Проверка размеры картинки в пикселях
+    // Рзаме
 }

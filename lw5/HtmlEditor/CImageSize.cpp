@@ -5,7 +5,7 @@ CImageSize::CImageSize(int width, int height)
 {
 	if (!IsValidSize(width) || !IsValidSize(height))
 	{
-		throw std::invalid_argument("Invalid size. The size should be in the range from 1 to 100");
+		throw std::invalid_argument("Invalid size. The size should be in the range from 1 to 10000");
 	}
 
 	m_width = width;
