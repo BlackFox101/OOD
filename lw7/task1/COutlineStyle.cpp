@@ -1,5 +1,5 @@
 #include "COutlineStyle.h"
-#include <stdexcept>
+#include "stdafx.h"
 
 const RGBAColor BLACK = 0x000000;
 const double DEFAULT_OUTLINE_WIDTH = 5;

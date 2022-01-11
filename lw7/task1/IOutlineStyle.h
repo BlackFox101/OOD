@@ -1,5 +1,6 @@
 #pragma once
 #include "IStyle.h"
+#include "stdafx.h"
 
 class IOutlineStyle : public IStyle
 {

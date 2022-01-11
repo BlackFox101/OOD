@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "composite", "composite\composite.vcxproj", "{C7BCADF5-7B3C-4C6F-9C4F-4619A10900AA}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "task1", "task1\task1.vcxproj", "{4AEA3B88-4047-4DE1-91BC-E680EE531914}"
 EndProject
 Global
@@ -15,14 +13,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C7BCADF5-7B3C-4C6F-9C4F-4619A10900AA}.Debug|x64.ActiveCfg = Debug|x64
-		{C7BCADF5-7B3C-4C6F-9C4F-4619A10900AA}.Debug|x64.Build.0 = Debug|x64
-		{C7BCADF5-7B3C-4C6F-9C4F-4619A10900AA}.Debug|x86.ActiveCfg = Debug|Win32
-		{C7BCADF5-7B3C-4C6F-9C4F-4619A10900AA}.Debug|x86.Build.0 = Debug|Win32
-		{C7BCADF5-7B3C-4C6F-9C4F-4619A10900AA}.Release|x64.ActiveCfg = Release|x64
-		{C7BCADF5-7B3C-4C6F-9C4F-4619A10900AA}.Release|x64.Build.0 = Release|x64
-		{C7BCADF5-7B3C-4C6F-9C4F-4619A10900AA}.Release|x86.ActiveCfg = Release|Win32
-		{C7BCADF5-7B3C-4C6F-9C4F-4619A10900AA}.Release|x86.Build.0 = Release|Win32
 		{4AEA3B88-4047-4DE1-91BC-E680EE531914}.Debug|x64.ActiveCfg = Debug|x64
 		{4AEA3B88-4047-4DE1-91BC-E680EE531914}.Debug|x64.Build.0 = Debug|x64
 		{4AEA3B88-4047-4DE1-91BC-E680EE531914}.Debug|x86.ActiveCfg = Debug|Win32

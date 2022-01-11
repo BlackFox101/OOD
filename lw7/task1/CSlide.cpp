@@ -1,5 +1,5 @@
 #include "CSlide.h"
-#include <stdexcept>
+#include "stdafx.h"
 
 CSlide::CSlide(double width, double height)
 	: m_width(width)
@@ -27,14 +27,16 @@ std::shared_ptr<IShape> CSlide::GetShapeAtIndex(size_t index)
 	return m_shapes.at(index);
 }
 
-void CSlide::InsertShape(std::shared_ptr<IShape> shape, std::optional<size_t> position = std::nullopt)
+void CSlide::InsertShape(const std::shared_ptr<IShape>& shape, size_t position)
 {
-	if (position && position >= m_shapes.size())
+	if (position >= m_shapes.size())
 	{
 		m_shapes.push_back(shape);
-		return;
 	}
-	m_shapes.emplace(m_shapes.begin() + *position, shape);
+	else
+	{
+		m_shapes.emplace(m_shapes.begin() + position, shape);
+	}
 }
 
 void CSlide::RemoveShapeAtIndex(size_t index)

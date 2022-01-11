@@ -1,6 +1,6 @@
 #pragma once
 #include "CommonTypes.h"
-#include <optional>
+#include "stdafx.h"
 
 class IStyle
 {

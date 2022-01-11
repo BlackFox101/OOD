@@ -1,8 +1,7 @@
 #pragma once
 #include "IStyle.h"
 #include "IShape.h"
-#include <vector>
-#include <memory>
+#include "stdafx.h"
 
 class CGroupFillStyle : public IStyle
 {

@@ -1,8 +1,7 @@
 #pragma once
 #include "IOutlineStyle.h"
 #include "IShape.h"
-#include <vector>
-#include <memory>
+#include "stdafx.h"
 
 class CGroupOutlineStyle : public IOutlineStyle
 {

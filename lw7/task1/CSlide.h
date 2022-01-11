@@ -1,6 +1,6 @@
 #pragma once
 #include "ISlide.h"
-#include <vector>
+#include "stdafx.h"
 
 class CSlide : public ISlide
 {
@@ -11,7 +11,7 @@ public:
 
 	size_t GetShapesCount() const override;
 	std::shared_ptr<IShape> GetShapeAtIndex(size_t index) override;
-	void InsertShape(std::shared_ptr<IShape> shape, std::optional<size_t> position = std::nullopt) override;
+	void InsertShape(const std::shared_ptr<IShape>& shape, size_t position = std::numeric_limits<size_t>::max()) override;
 	void RemoveShapeAtIndex(size_t index) override;
 
 	void SetBackGroundColor(RGBAColor color) override;

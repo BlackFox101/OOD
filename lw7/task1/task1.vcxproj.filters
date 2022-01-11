@@ -54,6 +54,15 @@
     <ClCompile Include="CGroupOutlineStyle.cpp">
       <Filter>Styles</Filter>
     </ClCompile>
+    <ClCompile Include="CCanvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CGroupShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonTypes.h">
@@ -109,6 +118,15 @@
     </ClInclude>
     <ClInclude Include="ICanvas.h">
       <Filter>Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="CCanvas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CGroupShape.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

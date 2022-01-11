@@ -141,22 +141,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CCanvas.cpp" />
     <ClCompile Include="CEllipse.cpp" />
     <ClCompile Include="CFillStyle.cpp" />
     <ClCompile Include="CGroupFillStyle.cpp" />
     <ClCompile Include="CGroupOutlineStyle.cpp" />
+    <ClCompile Include="CGroupShape.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CShape.cpp" />
     <ClCompile Include="CSlide.cpp" />
     <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="COutlineStyle.cpp" />
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CCanvas.h" />
     <ClInclude Include="CEllipse.h" />
     <ClInclude Include="CFillStyle.h" />
     <ClInclude Include="CGroupFillStyle.h" />
     <ClInclude Include="CGroupOutlineStyle.h" />
+    <ClInclude Include="CGroupShape.h" />
     <ClInclude Include="CommonTypes.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CShape.h" />
@@ -171,6 +176,7 @@
     <ClInclude Include="ISlide.h" />
     <ClInclude Include="IStyle.h" />
     <ClInclude Include="COutlineStyle.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
