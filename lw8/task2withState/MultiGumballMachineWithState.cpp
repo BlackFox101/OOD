@@ -71,6 +71,7 @@ bool with_state::MultiGumballMachineWithState::RemoveAllQuarter()
 	return false;
 }
 
+// Consume
 bool with_state::MultiGumballMachineWithState::RemoveOneQuarter()
 {
 	if (m_quarterCount != 0)

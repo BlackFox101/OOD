@@ -6,7 +6,41 @@
 using namespace std;
 using namespace with_state;
 
-string ToString(const with_state::IState* state, unsigned gumBallCount, unsigned quarterCount)
+enum class State
+{
+	CSoldState,
+	CSoldOutState,
+	CHasQuarterState,
+	CNoQuarterState
+};
+
+class TestState 
+{
+public:
+	TestState(State state)
+		: m_state(state)
+	{}
+	string ToString()
+	{
+		switch (m_state)
+		{
+		case State::CSoldState:
+			return "delivering a gumball";
+		case State::CSoldOutState:
+			return "sold out";
+		case State::CHasQuarterState:
+			return "waiting for turn of crank";
+		case State::CNoQuarterState:
+			return "waiting for quarter";
+		default:
+			return "sold out";
+		}
+	}
+private:
+	State m_state;
+};
+
+string ToString(TestState* state, unsigned gumBallCount, unsigned quarterCount)
 {
 	auto fmt = boost::format(R"(
 Mighty Gumball, Inc.
@@ -20,11 +54,11 @@ Machine is %5%
 TEST_CASE("Testing with 'SoldOut' state")
 {
 	MultiGumballMachineWithState m(0);
-	with_state::CSoldOutState soldOutState(m);
+	TestState soldOutState(State::CSoldOutState);
 
 	REQUIRE(m.ToString() == ToString(&soldOutState, 0, 0));
 
-	WHEN("Insert  quarter")
+	WHEN("Insert quarter")
 	{
 		m.InsertQuarter();
 		THEN("The state will not change")
@@ -53,8 +87,8 @@ TEST_CASE("Testing with 'SoldOut' state")
 TEST_CASE("Testing with 'NoQuarter' state")
 {
 	MultiGumballMachineWithState m(5);
-	with_state::CNoQuarterState noQuarterState(m);
-	with_state::CHasQuarterState hasQuarterState(m);
+	TestState noQuarterState(State::CNoQuarterState);
+	TestState hasQuarterState(State::CHasQuarterState);
 
 	WHEN("Insert quarter")
 	{
@@ -88,7 +122,7 @@ TEST_CASE("Testing with 'HasQuarter' state")
 	{
 		MultiGumballMachineWithState m(5);
 		m.InsertQuarter();
-		with_state::CHasQuarterState hasQuarterState(m);
+		TestState hasQuarterState(State::CHasQuarterState);
 		REQUIRE(m.ToString() == ToString(&hasQuarterState, 5, 1));
 		WHEN("Insert quarter")
 		{
@@ -103,7 +137,7 @@ TEST_CASE("Testing with 'HasQuarter' state")
 			m.EjectQuarter();
 			THEN("The state has changed. New - 'NoQuarter'. Quarter count = 0")
 			{
-				with_state::CNoQuarterState noQuarterState(m);
+				TestState noQuarterState(State::CNoQuarterState);
 				CHECK(m.ToString() == ToString(&noQuarterState, 5, 0));
 			}
 		}
@@ -112,7 +146,7 @@ TEST_CASE("Testing with 'HasQuarter' state")
 			m.TurnCrank();
 			THEN("The state has changed. New - 'NoQuarter'. Quarter count = 0, gumBall count = 4")
 			{
-				with_state::CNoQuarterState noQuarterState(m);
+				TestState noQuarterState(State::CNoQuarterState);
 				CHECK(m.ToString() == ToString(&noQuarterState, 4, 0));
 			}
 		}
@@ -123,7 +157,7 @@ TEST_CASE("Testing with 'HasQuarter' state")
 		MultiGumballMachineWithState m(5);
 		m.InsertQuarter();
 		m.InsertQuarter();
-		with_state::CHasQuarterState hasQuarterState(m);
+		TestState hasQuarterState(State::CHasQuarterState);
 		REQUIRE(m.ToString() == ToString(&hasQuarterState, 5, 2));
 		WHEN("Insert quarter")
 		{
@@ -138,7 +172,7 @@ TEST_CASE("Testing with 'HasQuarter' state")
 			m.EjectQuarter();
 			THEN("The state has changed. New - 'NoQuarter'. Quarter count = 0")
 			{
-				with_state::CNoQuarterState noQuarterState(m);
+				TestState noQuarterState(State::CNoQuarterState);
 				CHECK(m.ToString() == ToString(&noQuarterState, 5, 0));
 			}
 		}
@@ -160,7 +194,7 @@ TEST_CASE("Testing with 'HasQuarter' state")
 		m.InsertQuarter();
 		m.InsertQuarter();
 		m.InsertQuarter();
-		with_state::CHasQuarterState hasQuarterState(m);
+		TestState hasQuarterState(State::CHasQuarterState);
 		REQUIRE(m.ToString() == ToString(&hasQuarterState, 5, 5));
 		WHEN("Insert quarter")
 		{
@@ -175,7 +209,7 @@ TEST_CASE("Testing with 'HasQuarter' state")
 			m.EjectQuarter();
 			THEN("The state has changed. New - 'NoQuarter'. Quarter count = 0")
 			{
-				with_state::CNoQuarterState noQuarterState(m);
+				TestState noQuarterState(State::CNoQuarterState);
 				CHECK(m.ToString() == ToString(&noQuarterState, 5, 0));
 			}
 		}
@@ -195,7 +229,7 @@ SCENARIO("Add Additional quarters, without waiting for the issuance of all the b
 	MultiGumballMachineWithState m(5);
 	m.InsertQuarter();
 	m.InsertQuarter();
-	with_state::CHasQuarterState hasQuarterState(m);
+	TestState hasQuarterState(State::CHasQuarterState);
 	REQUIRE(m.ToString() == ToString(&hasQuarterState, 5, 2));
 
 	m.TurnCrank();
@@ -211,11 +245,11 @@ SCENARIO("The balls are over, the quarters can be taken away.")
 	MultiGumballMachineWithState m(1);
 	m.InsertQuarter();
 	m.InsertQuarter();
-	with_state::CHasQuarterState hasQuarterState(m);
+	TestState hasQuarterState(State::CHasQuarterState);
 	REQUIRE(m.ToString() == ToString(&hasQuarterState, 1, 2));
 
 	m.TurnCrank();
-	with_state::CSoldOutState soldOutState(m);
+	TestState soldOutState(State::CSoldOutState);
 	REQUIRE(m.ToString() == ToString(&soldOutState, 0, 1));
 	m.EjectQuarter();
 	REQUIRE(m.ToString() == ToString(&soldOutState, 0, 0));

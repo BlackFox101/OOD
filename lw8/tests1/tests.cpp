@@ -2,11 +2,46 @@
 #define CATCH_CONFIG_MAIN
 
 #include "../../catch2/catch.hpp"
-#include "CGumballMachine.h"
+#include "../gumball_machine/GumBallMachineWithState.h"
 
 using namespace std;
 
-string ToStringWithStateAndBallsCount(const with_state::IState* state, unsigned count)
+enum class State
+{
+	CSoldState,
+	CSoldOutState,
+	CHasQuarterState,
+	CNoQuarterState
+};
+
+class TestState
+{
+public:
+	TestState(State state)
+		: m_state(state)
+	{
+	}
+	string ToString()
+	{
+		switch (m_state)
+		{
+		case State::CSoldState:
+			return "delivering a gumball";
+		case State::CSoldOutState:
+			return "sold out";
+		case State::CHasQuarterState:
+			return "waiting for turn of crank";
+		case State::CNoQuarterState:
+			return "waiting for quarter";
+		default:
+			return "sold out";
+		}
+	}
+private:
+	State m_state;
+};
+
+string ToStringWithStateAndBallsCount(TestState* state, unsigned count)
 {
 	auto fmt = boost::format(R"(
 Mighty Gumball, Inc.
@@ -20,8 +55,8 @@ Machine is %3%
 
 TEST_CASE("Testing with 'SoldOut' state")
 {
-	CGumballMachine m(0);
-	with_state::CSoldOutState soldOutState(m);
+	with_state::CGumballMachine m(0);
+	TestState soldOutState(State::CSoldOutState);
 
 	REQUIRE(m.ToString() == ToStringWithStateAndBallsCount(&soldOutState, 0));
 
@@ -56,9 +91,9 @@ TEST_CASE("Testing with 'SoldOut' state")
 TEST_CASE("Testing with 'NoQuarter' state")
 {
 
-	CGumballMachine m(5);
-	with_state::CNoQuarterState noQuarterState(m);
-	with_state::CHasQuarterState hasQuarterState(m);
+	with_state::CGumballMachine m(5);
+	TestState noQuarterState(State::CNoQuarterState);
+	TestState hasQuarterState(State::CHasQuarterState);
 
 	REQUIRE(m.ToString() == ToStringWithStateAndBallsCount(&noQuarterState, 5));
 
@@ -93,11 +128,11 @@ TEST_CASE("Testing with 'NoQuarter' state")
 
 TEST_CASE("Testing with 'HasQuarter' state")
 {
-	CGumballMachine m(5);
+	with_state::CGumballMachine m(5);
 	m.InsertQuarter();
-	with_state::CNoQuarterState noQuarterState(m);
-	with_state::CHasQuarterState hasQuarterState(m);
-	with_state::CSoldOutState soldOutState(m);
+	TestState noQuarterState(State::CNoQuarterState);
+	TestState hasQuarterState(State::CHasQuarterState);
+	TestState soldOutState(State::CSoldOutState);
 
 	REQUIRE(m.ToString() == ToStringWithStateAndBallsCount(&hasQuarterState, 5));
 
@@ -124,7 +159,7 @@ TEST_CASE("Testing with 'HasQuarter' state")
 	{
 		WHEN("There's still some gum ball")
 		{
-			CGumballMachine m(5);
+			with_state::CGumballMachine m(5);
 			m.InsertQuarter();
 			m.TurnCrank();
 			THEN("The state has changed. New - 'CSoldState'")
@@ -135,7 +170,7 @@ TEST_CASE("Testing with 'HasQuarter' state")
 
 		WHEN("There was the last gum ball")
 		{
-			CGumballMachine m(1);
+			with_state::CGumballMachine m(1);
 			m.InsertQuarter();
 			m.TurnCrank();
 			THEN("The state has changed. New - 'CSoldState'")

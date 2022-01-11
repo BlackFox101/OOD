@@ -194,7 +194,7 @@ private:
 	IGumballMachine& m_gumballMachine;
 };
 
-class MultiGumballMachineWithState : public IGumballMachine
+class MultiGumballMachineWithState : private IGumballMachine
 {
 public:
 	MultiGumballMachineWithState(unsigned numBalls);

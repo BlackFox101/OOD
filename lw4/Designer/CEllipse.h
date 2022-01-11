@@ -1,3 +1,4 @@
+#include "..\..\lw7\task1\CEllipse.h"
 #pragma once
 #include "CShape.h"
 

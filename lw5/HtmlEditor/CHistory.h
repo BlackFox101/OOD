@@ -6,6 +6,8 @@ class IHistory
 {
 public:
 	virtual void AddAndExecuteCommand(ICommandPtr&& command) = 0;
+protected:
+	~IHistory() = default;
 };
 
 class CHistory : public IHistory
