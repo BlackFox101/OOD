@@ -1,9 +1,8 @@
 #pragma once
 #include "IDrawable.h"
-#include "IStyle.h"
-#include "IGroupShape.h"
 #include "IOutlineStyle.h"
-#include "stdafx.h"
+
+class IGroupShape;
 
 class IShape : public IDrawable
 {
@@ -25,3 +24,4 @@ public:
 
 	virtual ~IShape() = default;
 };
+

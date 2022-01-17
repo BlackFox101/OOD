@@ -1,5 +1,6 @@
 #pragma once
-#include "stdafx.h"
+#include <cstdint>
+#include <iostream>
 
 template <typename T>
 struct PointType
@@ -24,13 +25,3 @@ struct Rect
 typedef Rect<double> RectD;
 typedef PointType<double> Point;
 typedef uint32_t RGBAColor;
-
-Point operator-(const Point& left, const Point& right)
-{
-	return { left.x - right.x, left.y - right.y };
-}
-
-std::ostream& operator<<(std::ostream& stream, const Point& point)
-{
-	return stream << "{" << point.x << ", " << point.y << "}";
-}

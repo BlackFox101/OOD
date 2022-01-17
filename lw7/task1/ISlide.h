@@ -1,7 +1,6 @@
 #pragma once
-#include "stdafx.h"
 #include "IDrawable.h"
-#include "IShapes.h"
+#include "IShape.h"
 
 class ISlide : public IDrawable
 {
@@ -19,3 +18,4 @@ public:
 
 	virtual ~ISlide() = default;
 };
+

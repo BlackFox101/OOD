@@ -1,20 +1,20 @@
 #include "CGroupFillStyle.h"
-#include "stdafx.h"
 
-CGroupFillStyle::CGroupFillStyle(std::vector<std::shared_ptr<IShape>> shapes)
-	: m_shapes(shapes)
+CGroupFillStyle::CGroupFillStyle(std::shared_ptr<IFillStyleEnumerator> fillStyleEnumerator)
+	: m_fillStyleEnumerator(fillStyleEnumerator)
 {
 }
 
 std::optional<RGBAColor> CGroupFillStyle::GetColor() const
 {
 	std::optional<RGBAColor> color = std::nullopt;
-	for (auto& shape : m_shapes)
+	m_fillStyleEnumerator->EnumarateFillStyles([&color](std::shared_ptr<IStyle> style) 
 	{
-		std::optional<RGBAColor> currentColor = shape->GetFillStyle()->GetColor();
+		std::optional<RGBAColor> currentColor = style->GetColor();
 		if (!currentColor)
 		{
-			return std::nullopt;
+			color = std::nullopt;
+			return;
 		}
 		if (!color)
 		{
@@ -22,15 +22,17 @@ std::optional<RGBAColor> CGroupFillStyle::GetColor() const
 		}
 		else if (*color != *currentColor)
 		{
-			return std::nullopt;
+			color = std::nullopt;
+			return;
 		}
-	}
+	});
+	return color;
 }
 
 void CGroupFillStyle::SetColor(RGBAColor color)
 {
-	for (auto& shape : m_shapes)
+	m_fillStyleEnumerator->EnumarateFillStyles([color](std::shared_ptr<IStyle> style)
 	{
-		shape->GetFillStyle()->SetColor(color);
-	}
+		style->SetColor(color);
+	});
 }

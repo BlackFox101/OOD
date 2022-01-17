@@ -12,5 +12,5 @@ public:
 	virtual void DrawEllipse(const Point& center, double xRadius, double yRadius) = 0;
 	virtual void FillEllipse(const Point& center, double xRadius, double yRadius, RGBAColor color) = 0;
 
-	virtual ~ICanvas() = 0;
+	virtual ~ICanvas() = default;
 };

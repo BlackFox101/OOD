@@ -1,9 +1,7 @@
 #pragma once
 #include "IShape.h"
-#include "IOutlineStyle.h"
 #include "COutlineStyle.h"
 #include "CFillStyle.h"
-#include "stdafx.h"
 
 class CShape : public IShape
 {
@@ -24,4 +22,3 @@ private:
 	std::shared_ptr<IOutlineStyle> m_outlineStyle = std::make_shared<COutlineStyle>();
 	std::shared_ptr<IStyle> m_fillStyle = std::make_shared<CFillStyle>();
 };
-

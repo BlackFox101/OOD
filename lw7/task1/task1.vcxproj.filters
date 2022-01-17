@@ -9,37 +9,18 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Shapes">
-      <UniqueIdentifier>{74e8e568-2279-4967-85c4-e4f9fc5119cc}</UniqueIdentifier>
+      <UniqueIdentifier>{2a55125a-09da-4888-974a-ed8791663b93}</UniqueIdentifier>
     </Filter>
     <Filter Include="Styles">
-      <UniqueIdentifier>{85ba60d4-aaca-481b-8c8f-af2a3fb44c44}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Interfaces">
-      <UniqueIdentifier>{f0d7caf6-9e62-4461-b1d3-9ab548103c53}</UniqueIdentifier>
+      <UniqueIdentifier>{5d74821b-f04c-401c-957c-61caa7213472}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CSlide.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CShape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CEllipse.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
     <ClCompile Include="CRectangle.cpp">
-      <Filter>Shapes</Filter>
-    </ClCompile>
-    <ClCompile Include="CTriangle.cpp">
       <Filter>Shapes</Filter>
     </ClCompile>
     <ClCompile Include="COutlineStyle.cpp">
@@ -48,39 +29,39 @@
     <ClCompile Include="CFillStyle.cpp">
       <Filter>Styles</Filter>
     </ClCompile>
-    <ClCompile Include="CGroupFillStyle.cpp">
-      <Filter>Styles</Filter>
-    </ClCompile>
     <ClCompile Include="CGroupOutlineStyle.cpp">
       <Filter>Styles</Filter>
     </ClCompile>
-    <ClCompile Include="CCanvas.cpp">
+    <ClCompile Include="CGroupFillStyle.cpp">
+      <Filter>Styles</Filter>
+    </ClCompile>
+    <ClCompile Include="CEllipse.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="CTriangle.cpp">
+      <Filter>Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="CSlide.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SVGCanvas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CGroupShape.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Shapes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonTypes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CSlide.h">
+    <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CShape.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CEllipse.h">
-      <Filter>Shapes</Filter>
     </ClInclude>
     <ClInclude Include="CRectangle.h">
-      <Filter>Shapes</Filter>
-    </ClInclude>
-    <ClInclude Include="CTriangle.h">
       <Filter>Shapes</Filter>
     </ClInclude>
     <ClInclude Include="COutlineStyle.h">
@@ -89,44 +70,62 @@
     <ClInclude Include="CFillStyle.h">
       <Filter>Styles</Filter>
     </ClInclude>
-    <ClInclude Include="CGroupFillStyle.h">
-      <Filter>Styles</Filter>
-    </ClInclude>
     <ClInclude Include="CGroupOutlineStyle.h">
       <Filter>Styles</Filter>
     </ClInclude>
+    <ClInclude Include="CGroupFillStyle.h">
+      <Filter>Styles</Filter>
+    </ClInclude>
+    <ClInclude Include="CEllipse.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="CTriangle.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="CSlide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SVGCanvas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="IStyle.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ISlide.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="IShapes.h">
-      <Filter>Interfaces</Filter>
+      <Filter>Styles</Filter>
     </ClInclude>
     <ClInclude Include="IShape.h">
-      <Filter>Interfaces</Filter>
+      <Filter>Shapes</Filter>
     </ClInclude>
-    <ClInclude Include="IOutlineStyle.h">
-      <Filter>Interfaces</Filter>
+    <ClInclude Include="IShapes.h">
+      <Filter>Shapes</Filter>
     </ClInclude>
     <ClInclude Include="IGroupShape.h">
-      <Filter>Interfaces</Filter>
+      <Filter>Shapes</Filter>
     </ClInclude>
-    <ClInclude Include="IDrawable.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="ICanvas.h">
-      <Filter>Interfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="CCanvas.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="IOutlineStyle.h">
+      <Filter>Styles</Filter>
     </ClInclude>
     <ClInclude Include="CGroupShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="CShape.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="ICanvas.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="IDrawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ISlide.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IFillStyleEnumerator.h">
+      <Filter>Styles</Filter>
+    </ClInclude>
+    <ClInclude Include="IOutlineStyleEnumarator.h">
+      <Filter>Styles</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

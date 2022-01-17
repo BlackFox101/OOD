@@ -1,5 +1,4 @@
 #include "CFillStyle.h"
-#include "stdafx.h"
 
 std::optional<RGBAColor> CFillStyle::GetColor() const
 {

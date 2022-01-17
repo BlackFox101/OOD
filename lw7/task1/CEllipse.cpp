@@ -13,7 +13,7 @@ RectD CEllipse::GetFrame()
 	frame.leftTop = { m_center.x - m_xRadius, m_center.y - m_yRadius };
 	frame.width = m_xRadius + m_xRadius;
 	frame.height = m_yRadius + m_yRadius;
-	
+
 	return frame;
 }
 
@@ -28,7 +28,7 @@ void CEllipse::Draw(ICanvas& canvas)
 {
 	auto outlineStyle = GetOutlineStyle();
 	auto outlineColor = outlineStyle->GetColor();
-	auto outlineWidth = outlineStyle->GetColor();
+	auto outlineWidth = outlineStyle->GetWidth();
 	if (outlineColor)
 	{
 		canvas.SetLineColor(*outlineColor);

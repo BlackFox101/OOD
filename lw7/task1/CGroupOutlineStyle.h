@@ -1,18 +1,18 @@
 #pragma once
 #include "IOutlineStyle.h"
 #include "IShape.h"
-#include "stdafx.h"
+#include "IOutlineStyleEnumarator.h"
 
 class CGroupOutlineStyle : public IOutlineStyle
 {
 public:
-	CGroupOutlineStyle(std::vector<std::shared_ptr<IShape>> shapes);
+	CGroupOutlineStyle(std::shared_ptr<IOutlineStyleEnumarator> outlineStyleEnumerator);
+
 	std::optional<RGBAColor> GetColor()const;
 	void SetColor(RGBAColor color);
 
 	std::optional<double> GetWidth() const;
 	void SetWidth(double width);
 private:
-	std::vector<std::shared_ptr<IShape>> m_shapes;
+	std::shared_ptr<IOutlineStyleEnumarator> m_outlineStyleEnumerator;
 };
-

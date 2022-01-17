@@ -1,7 +1,6 @@
 #pragma once
-#include "IShape.h"
 #include "IShapes.h"
-#include "stdafx.h"
+#include "IShape.h"
 
 class IGroupShape : public IShape, public IShapes
 {

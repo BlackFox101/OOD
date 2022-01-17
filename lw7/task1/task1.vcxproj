@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4aea3b88-4047-4de1-91bc-e680ee531914}</ProjectGuid>
+    <ProjectGuid>{5cc88bc8-391a-40aa-b68f-bc1fc245886a}</ProjectGuid>
     <RootNamespace>task1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -141,44 +141,55 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CCanvas.cpp" />
     <ClCompile Include="CEllipse.cpp" />
     <ClCompile Include="CFillStyle.cpp" />
     <ClCompile Include="CGroupFillStyle.cpp" />
     <ClCompile Include="CGroupOutlineStyle.cpp" />
     <ClCompile Include="CGroupShape.cpp" />
+    <ClCompile Include="COutlineStyle.cpp" />
     <ClCompile Include="CRectangle.cpp" />
     <ClCompile Include="CShape.cpp" />
     <ClCompile Include="CSlide.cpp" />
     <ClCompile Include="CTriangle.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="COutlineStyle.cpp" />
-    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="SVGCanvas.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CCanvas.h" />
     <ClInclude Include="CEllipse.h" />
     <ClInclude Include="CFillStyle.h" />
     <ClInclude Include="CGroupFillStyle.h" />
     <ClInclude Include="CGroupOutlineStyle.h" />
     <ClInclude Include="CGroupShape.h" />
     <ClInclude Include="CommonTypes.h" />
+    <ClInclude Include="COutlineStyle.h" />
     <ClInclude Include="CRectangle.h" />
     <ClInclude Include="CShape.h" />
     <ClInclude Include="CSlide.h" />
     <ClInclude Include="CTriangle.h" />
     <ClInclude Include="ICanvas.h" />
     <ClInclude Include="IDrawable.h" />
+    <ClInclude Include="IFillStyleEnumerator.h" />
     <ClInclude Include="IGroupShape.h" />
     <ClInclude Include="IOutlineStyle.h" />
+    <ClInclude Include="IOutlineStyleEnumarator.h" />
     <ClInclude Include="IShape.h" />
     <ClInclude Include="IShapes.h" />
     <ClInclude Include="ISlide.h" />
     <ClInclude Include="IStyle.h" />
-    <ClInclude Include="COutlineStyle.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SVGCanvas.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\boost.1.78.0\build\boost.targets" Condition="Exists('..\packages\boost.1.78.0\build\boost.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\boost.1.78.0\build\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.78.0\build\boost.targets'))" />
+  </Target>
 </Project>

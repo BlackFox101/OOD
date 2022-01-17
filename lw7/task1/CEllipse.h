@@ -1,6 +1,5 @@
 #pragma once
 #include "CShape.h"
-#include "stdafx.h"
 
 class CEllipse : public CShape
 {
@@ -13,4 +12,3 @@ private:
 	Point m_center;
 	double m_xRadius, m_yRadius;
 };
-

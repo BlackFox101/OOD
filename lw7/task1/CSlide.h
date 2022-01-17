@@ -1,7 +1,7 @@
 #pragma once
 #include "ISlide.h"
-#include "stdafx.h"
 
+// TODO: ни где не используется интерфейс
 class CSlide : public ISlide
 {
 public:
@@ -17,8 +17,11 @@ public:
 	void SetBackGroundColor(RGBAColor color) override;
 	std::optional<RGBAColor> GetBackGroundColor() const override;
 
+	void Draw(ICanvas& canvas) override;
+
 private:
 	std::optional<RGBAColor> m_color = std::nullopt;
 	double m_width, m_height;
 	std::vector<std::shared_ptr<IShape>> m_shapes;
 };
+

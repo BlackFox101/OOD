@@ -1,6 +1,5 @@
 #pragma once
 #include "IOutlineStyle.h"
-#include "stdafx.h"
 
 class COutlineStyle : public IOutlineStyle
 {
@@ -15,4 +14,3 @@ private:
 	std::optional<double> m_lineWidth;
 	std::optional<RGBAColor> m_lineColor;
 };
-

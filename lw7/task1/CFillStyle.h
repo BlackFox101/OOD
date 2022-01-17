@@ -1,6 +1,5 @@
 #pragma once
 #include "IStyle.h"
-#include "stdafx.h"
 
 class CFillStyle : public IStyle
 {

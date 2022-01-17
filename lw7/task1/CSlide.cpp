@@ -1,5 +1,4 @@
 #include "CSlide.h"
-#include "stdafx.h"
 
 CSlide::CSlide(double width, double height)
 	: m_width(width)
@@ -56,4 +55,12 @@ void CSlide::SetBackGroundColor(RGBAColor color)
 std::optional<RGBAColor> CSlide::GetBackGroundColor() const
 {
 	return m_color;
+}
+
+void CSlide::Draw(ICanvas& canvas)
+{
+	for (auto& shape : m_shapes)
+	{
+		shape->Draw(canvas);
+	}
 }

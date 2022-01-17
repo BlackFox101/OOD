@@ -26,7 +26,7 @@ void CRectangle::Draw(ICanvas& canvas)
 {
     auto outlineStyle = GetOutlineStyle();
     auto outlineColor = outlineStyle->GetColor();
-    auto outlineWidth = outlineStyle->GetColor();
+    auto outlineWidth = outlineStyle->GetWidth();
     if (outlineColor)
     {
         canvas.SetLineColor(*outlineColor);
@@ -43,11 +43,12 @@ void CRectangle::Draw(ICanvas& canvas)
     auto fillColor = GetFillStyle()->GetColor();
     if (fillColor)
     {
-        std::vector<Point> points = { 
-            m_leftTop, 
-            { m_leftTop.x, m_rightBottom.y}, 
-            m_rightBottom, 
-            { m_rightBottom.x, m_leftTop.y } };
+        std::vector<Point> points = {
+            m_leftTop,
+            { m_leftTop.x, m_rightBottom.y},
+            m_rightBottom,
+            { m_rightBottom.x, m_leftTop.y } 
+        };
         canvas.FillPoligon(points, *fillColor);
     }
 }

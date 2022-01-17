@@ -1,6 +1,5 @@
 #pragma once
 #include "CShape.h"
-#include "stdafx.h"
 
 class CRectangle : public CShape
 {
@@ -13,4 +12,3 @@ public:
 private:
 	Point m_leftTop, m_rightBottom;
 };
-

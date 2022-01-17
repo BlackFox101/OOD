@@ -1,20 +1,20 @@
 #include "CGroupOutlineStyle.h"
-#include "stdafx.h"
 
-CGroupOutlineStyle::CGroupOutlineStyle(std::vector<std::shared_ptr<IShape>> shapes)
-	: m_shapes(shapes)
+CGroupOutlineStyle::CGroupOutlineStyle(std::shared_ptr<IOutlineStyleEnumarator> outlineStyleEnumerator)
+	: m_outlineStyleEnumerator(outlineStyleEnumerator)
 {
 }
 
 std::optional<RGBAColor> CGroupOutlineStyle::GetColor() const
 {
 	std::optional<RGBAColor> color = std::nullopt;
-	for (auto& shape : m_shapes)
+	m_outlineStyleEnumerator->EnumarateOutlineStyles([&color](std::shared_ptr<IStyle> style) 
 	{
-		std::optional<RGBAColor> currentColor = shape->GetOutlineStyle()->GetColor();
+		std::optional<RGBAColor> currentColor = style->GetColor();
 		if (!currentColor)
 		{
-			return std::nullopt;
+			color = std::nullopt;
+			return;
 		}
 		if (!color)
 		{
@@ -22,28 +22,31 @@ std::optional<RGBAColor> CGroupOutlineStyle::GetColor() const
 		}
 		else if (*color != *currentColor)
 		{
-			return std::nullopt;
+			color = std::nullopt;
+			return;
 		}
-	}
+	});
+	return color;
 }
 
 void CGroupOutlineStyle::SetColor(RGBAColor color)
 {
-	for (auto& shape : m_shapes)
+	m_outlineStyleEnumerator->EnumarateOutlineStyles([color](std::shared_ptr<IOutlineStyle> style)
 	{
-		shape->GetOutlineStyle()->SetColor(color);
-	}
+		style->SetColor(color);
+	});
 }
 
 std::optional<double> CGroupOutlineStyle::GetWidth() const
 {
 	std::optional<double> width = std::nullopt;
-	for (auto& shape : m_shapes)
+	m_outlineStyleEnumerator->EnumarateOutlineStyles([&width](std::shared_ptr<IOutlineStyle> style)
 	{
-		std::optional<double> currentWidth = shape->GetOutlineStyle()->GetWidth();
+		std::optional<double> currentWidth = style->GetWidth();
 		if (!currentWidth)
 		{
-			return std::nullopt;
+			width = std::nullopt;
+			return;
 		}
 		if (!width)
 		{
@@ -51,15 +54,17 @@ std::optional<double> CGroupOutlineStyle::GetWidth() const
 		}
 		else if (*width != *currentWidth)
 		{
-			return std::nullopt;
+			width = std::nullopt;
+			return;
 		}
-	}
+	});
+	return width;
 }
 
 void CGroupOutlineStyle::SetWidth(double width)
 {
-	for (auto& shape : m_shapes)
+	m_outlineStyleEnumerator->EnumarateOutlineStyles([width](std::shared_ptr<IOutlineStyle> style)
 	{
-		shape->GetOutlineStyle()->SetWidth(width);
-	}
+		style->SetWidth(width);
+	});
 }
