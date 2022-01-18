@@ -9,20 +9,23 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
+    <Filter Include="Model">
+      <UniqueIdentifier>{30f27f76-9696-49d2-8d2b-c3bdce4e88e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="View">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Model">
-      <UniqueIdentifier>{30f27f76-9696-49d2-8d2b-c3bdce4e88e3}</UniqueIdentifier>
+    <Filter Include="Controller">
+      <UniqueIdentifier>{1c83fd7c-2ce3-44a5-866b-3706102c1dd6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChartDrawerView.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>View</Filter>
     </ClCompile>
     <ClCompile Include="CreateNewHarmonicView.cpp">
-      <Filter>Resource Files</Filter>
+      <Filter>View</Filter>
     </ClCompile>
     <ClCompile Include="HarmonicType.cpp">
       <Filter>Model</Filter>
@@ -33,13 +36,16 @@
     <ClCompile Include="Harmonic.cpp">
       <Filter>Model</Filter>
     </ClCompile>
+    <ClCompile Include="ChartDrawerController.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChartDrawerView.h">
-      <Filter>Resource Files</Filter>
+      <Filter>View</Filter>
     </ClInclude>
     <ClInclude Include="CreateNewHarmonicView.h">
-      <Filter>Resource Files</Filter>
+      <Filter>View</Filter>
     </ClInclude>
     <ClInclude Include="HarmonicInterface.h">
       <Filter>Model</Filter>
@@ -55,6 +61,12 @@
     </ClInclude>
     <ClInclude Include="Harmonic.h">
       <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ChartDrawerControllerInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ChartDrawerController.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

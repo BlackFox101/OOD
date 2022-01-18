@@ -119,6 +119,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChartDrawerController.cpp" />
     <ClCompile Include="ChartDrawerView.cpp" />
     <ClCompile Include="CreateNewHarmonicView.cpp" />
     <ClCompile Include="Harmonic.cpp" />
@@ -126,6 +127,8 @@
     <ClCompile Include="HarmonicType.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChartDrawerController.h" />
+    <ClInclude Include="ChartDrawerControllerInterface.h" />
     <ClInclude Include="ChartDrawerView.h">
       <FileType>CppForm</FileType>
     </ClInclude>

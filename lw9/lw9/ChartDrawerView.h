@@ -1,5 +1,7 @@
 #pragma once
 #include "CreateNewHarmonicView.h"
+#include "HarmonicsStorageInterface.h"
+#include <memory>
 
 namespace lw9 {
 
@@ -13,10 +15,12 @@ using namespace System::Drawing;
 public ref class ChartDrawerView : public System::Windows::Forms::Form
 {
 public:
-	ChartDrawerView(void)
+	ChartDrawerView(std::shared_ptr<HarmonicsStorageInterface> harmonicsStorage, std::shared_ptr<ChartDrawerControllerInterface> controller)
 	{
 		InitializeComponent();
 	}
+private:
+	std::shared_ptr<HarmonicsStorageInterface> m_harmonicsStorage;
 
 protected:
 	~ChartDrawerView()
@@ -27,7 +31,6 @@ protected:
 		}
 	}
 private: System::Windows::Forms::DataVisualization::Charting::Chart^ chart1;
-protected:
 private: System::Windows::Forms::GroupBox^ groupBox1;
 private: System::Windows::Forms::Label^ Phase;
 private: System::Windows::Forms::Label^ Frequency;
@@ -230,6 +233,8 @@ private:
 
 	}
 #pragma endregion
+
+
 private: System::Void addNewButton_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	CreateNewHarmonicView^ createNewHarmonicView = gcnew CreateNewHarmonicView;
