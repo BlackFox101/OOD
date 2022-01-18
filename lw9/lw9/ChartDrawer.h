@@ -6,37 +6,39 @@ using namespace System::Windows::Forms;
 using namespace System::Data;
 using namespace System::Drawing;
 
-namespace lw9 {
+namespace lw9 
+{
 
-	public ref class ChartDrawer : public System::Windows::Forms::Form
+public ref class ChartDrawer : public System::Windows::Forms::Form
+{
+public:
+	ChartDrawer(void)
 	{
-	public:
-		ChartDrawer(void)
-		{
-			InitializeComponent();
-		}
+		InitializeComponent();
+	}
 
-	protected:
-		~ChartDrawer()
+protected:
+	~ChartDrawer()
+	{
+		if (components)
 		{
-			if (components)
-			{
-				delete components;
-			}
+			delete components;
 		}
+	}
 
-	private:
-		System::ComponentModel::Container ^components;
+private:
+	System::ComponentModel::Container ^components;
 
-#pragma region Windows Form Designer generated code
-		void InitializeComponent(void)
-		{
-			this->components = gcnew System::ComponentModel::Container();
-			this->Size = System::Drawing::Size(300,300);
-			this->Text = L"ChartDrawer";
-			this->Padding = System::Windows::Forms::Padding(0);
-			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-		}
-#pragma endregion
-	};
+	#pragma region Windows Form Designer generated code
+	void InitializeComponent(void)
+	{
+		this->components = gcnew System::ComponentModel::Container();
+		this->Size = System::Drawing::Size(300,300);
+		this->Text = L"ChartDrawer";
+		this->Padding = System::Windows::Forms::Padding(0);
+		this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+	}
+	#pragma endregion
+};
+
 }
