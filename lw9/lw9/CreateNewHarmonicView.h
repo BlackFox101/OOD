@@ -1,7 +1,6 @@
 #pragma once
 
 namespace lw9 {
-
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -9,24 +8,15 @@ namespace lw9 {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Summary for CreateNewHarmonicView
-	/// </summary>
 	public ref class CreateNewHarmonicView : public System::Windows::Forms::Form
 	{
 	public:
-		CreateNewHarmonicView(void)
+		CreateNewHarmonicView()
 		{
 			InitializeComponent();
-			//
-			//TODO: Add the constructor code here
-			//
 		}
 
 	protected:
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
 		~CreateNewHarmonicView()
 		{
 			if (components)
@@ -49,16 +39,9 @@ namespace lw9 {
 	private: System::Windows::Forms::Label^ label1;
 
 	private:
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		void InitializeComponent(void)
 		{
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
@@ -89,7 +72,7 @@ namespace lw9 {
 			this->groupBox1->Controls->Add(this->Phase);
 			this->groupBox1->Controls->Add(this->Frequency);
 			this->groupBox1->Controls->Add(this->Amplitude);
-			this->groupBox1->Location = System::Drawing::Point(15, 30);
+			this->groupBox1->Location = System::Drawing::Point(36, 12);
 			this->groupBox1->Name = L"groupBox1";
 			this->groupBox1->Size = System::Drawing::Size(253, 273);
 			this->groupBox1->TabIndex = 2;
@@ -204,7 +187,7 @@ namespace lw9 {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(291, 315);
+			this->ClientSize = System::Drawing::Size(324, 301);
 			this->Controls->Add(this->groupBox1);
 			this->Name = L"CreateNewHarmonicView";
 			this->Text = L"CreateNewHarmonicView";

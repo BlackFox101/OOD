@@ -1,4 +1,6 @@
 #pragma once
+#include "CreateNewHarmonicView.h"
+
 namespace lw9 {
 
 using namespace System;
@@ -47,8 +49,8 @@ private:
 #pragma region Windows Form Designer generated code
 	void InitializeComponent(void)
 	{
-		System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-		System::Windows::Forms::DataVisualization::Charting::Series^ series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
+		System::Windows::Forms::DataVisualization::Charting::ChartArea^ chartArea3 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
+		System::Windows::Forms::DataVisualization::Charting::Series^ series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 		this->chart1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 		this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
 		this->phaseTextBox = (gcnew System::Windows::Forms::TextBox());
@@ -70,15 +72,15 @@ private:
 		// 
 		// chart1
 		// 
-		chartArea1->Name = L"ChartArea1";
-		this->chart1->ChartAreas->Add(chartArea1);
+		chartArea3->Name = L"ChartArea1";
+		this->chart1->ChartAreas->Add(chartArea3);
 		this->chart1->Location = System::Drawing::Point(12, 300);
 		this->chart1->Name = L"chart1";
-		series1->BorderWidth = 2;
-		series1->ChartArea = L"ChartArea1";
-		series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-		series1->Name = L"Series1";
-		this->chart1->Series->Add(series1);
+		series3->BorderWidth = 2;
+		series3->ChartArea = L"ChartArea1";
+		series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
+		series3->Name = L"Series1";
+		this->chart1->Series->Add(series3);
 		this->chart1->Size = System::Drawing::Size(737, 300);
 		this->chart1->TabIndex = 0;
 		// 
@@ -177,6 +179,7 @@ private:
 		this->addNewButton->TabIndex = 2;
 		this->addNewButton->Text = L"Add new";
 		this->addNewButton->UseVisualStyleBackColor = true;
+		this->addNewButton->Click += gcnew System::EventHandler(this, &ChartDrawerView::addNewButton_Click);
 		// 
 		// deleteSelectedButton
 		// 
@@ -227,5 +230,11 @@ private:
 
 	}
 #pragma endregion
+private: System::Void addNewButton_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	CreateNewHarmonicView^ createNewHarmonicView = gcnew CreateNewHarmonicView;
+	createNewHarmonicView->Show();
+}
+
 };
 }
