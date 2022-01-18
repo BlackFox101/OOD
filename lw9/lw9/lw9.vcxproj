@@ -120,15 +120,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChartDrawerView.cpp" />
+    <ClCompile Include="CreateNewHarmonicView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChartDrawerView.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="CreateNewHarmonicView.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ChartDrawerView.resx">
       <DependentUpon>ChartDrawerView.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateNewHarmonicView.resx">
+      <DependentUpon>CreateNewHarmonicView.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
