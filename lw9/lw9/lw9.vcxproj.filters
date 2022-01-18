@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{30f27f76-9696-49d2-8d2b-c3bdce4e88e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ChartDrawerView.cpp">
@@ -21,6 +24,15 @@
     <ClCompile Include="CreateNewHarmonicView.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="HarmonicType.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="HarmonicsStorage.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Harmonic.cpp">
+      <Filter>Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChartDrawerView.h">
@@ -28,6 +40,21 @@
     </ClInclude>
     <ClInclude Include="CreateNewHarmonicView.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HarmonicInterface.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HarmonicType.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HarmonicsStorageInterface.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="HarmonicsStorage.h">
+      <Filter>Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Harmonic.h">
+      <Filter>Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
