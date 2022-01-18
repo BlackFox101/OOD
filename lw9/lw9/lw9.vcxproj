@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{BADD1943-1AE0-4D82-B564-A05738AE58B1}</ProjectGuid>
+    <ProjectGuid>{0B5B4ABD-0F14-459A-B4F5-9BCA8F9C5859}</ProjectGuid>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>lw9</RootNamespace>
@@ -119,12 +119,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ChartDrawer.cpp" />
+    <ClCompile Include="ChartDrawerView.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChartDrawer.h">
+    <ClInclude Include="ChartDrawerView.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ChartDrawerView.resx">
+      <DependentUpon>ChartDrawerView.h</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
