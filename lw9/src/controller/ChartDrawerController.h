@@ -1,6 +1,7 @@
 #pragma once
 #include "ChartDrawerControllerInterface.h"
-#include "HarmonicsStorageInterface.h"
+#include "src/model/HarmonicsStorageInterface.h"
+#include "src/common/harmonictype.h"
 #include <memory>
 
 class ChartDrawerController : public ChartDrawerControllerInterface

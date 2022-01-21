@@ -1,5 +1,5 @@
 #include "ChartDrawerController.h"
-#include "Harmonic.h"
+#include "src/model/Harmonic.h"
 
 ChartDrawerController::ChartDrawerController(std::shared_ptr<HarmonicsStorageInterface> harmonicsStorage)
 	: m_harmonicsStorage(harmonicsStorage)

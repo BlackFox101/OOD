@@ -1,5 +1,5 @@
 #pragma once
-#include "HarmonicInterface.h"
+#include "src/model/HarmonicInterface.h"
 
 class ChartDrawerControllerInterface
 {

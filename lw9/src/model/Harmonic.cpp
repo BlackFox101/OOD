@@ -3,10 +3,10 @@
 #include <cmath>
 
 Harmonic::Harmonic(HarmonicType type, double amplitude, double frequency, double phase)
-    : m_amplitude(amplitude)
+    : m_type(type)
+    , m_amplitude(amplitude)
     , m_frequency(frequency)
     , m_phase(phase)
-    , m_type(type)
 {
 }
 
