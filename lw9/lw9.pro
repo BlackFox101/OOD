@@ -12,12 +12,21 @@ SOURCES += \
     main.cpp \
     src/common/harmonicdto.cpp \
     src/common/harmonictype.cpp \
+    src/controller/ChartDrawerController.cpp \
+    src/model/Harmonic.cpp \
+    src/model/HarmonicsStorage.cpp \
     src/view/chartdrawerview.cpp \
     src/view/createnewharmonicview.cpp
 
 HEADERS += \
     src/common/harmonicdto.h \
     src/common/harmonictype.h \
+    src/controller/ChartDrawerController.h \
+    src/controller/ChartDrawerControllerInterface.h \
+    src/model/Harmonic.h \
+    src/model/HarmonicInterface.h \
+    src/model/HarmonicsStorage.h \
+    src/model/HarmonicsStorageInterface.h \
     src/view/chartdrawerview.h \
     src/view/createnewharmonicview.h
 
