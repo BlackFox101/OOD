@@ -12,9 +12,5 @@ public:
 
     virtual CoordinatesVector GetSumCoordinates() const = 0;
 
-    virtual void DoOnHarmonicChanged() = 0;
-    virtual void DoOnHarmonicAdded(size_t index) = 0;
-    virtual void DoOnHarmonicDeleted(size_t index) = 0;
-
 	virtual ~HarmonicsStorageInterface() = default;
 };
