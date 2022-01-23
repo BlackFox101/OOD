@@ -174,7 +174,6 @@
     <ClInclude Include="IOutlineStyleEnumarator.h" />
     <ClInclude Include="IShape.h" />
     <ClInclude Include="IShapes.h" />
-    <ClInclude Include="ISlide.h" />
     <ClInclude Include="IStyle.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SVGCanvas.h" />

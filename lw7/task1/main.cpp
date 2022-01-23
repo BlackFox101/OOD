@@ -11,7 +11,7 @@ using namespace std;
 
 int main()
 {
-    /*shared_ptr<IShape> foundation = make_shared<CRectangle>(Point{100, 100}, Point{300, 200});
+    shared_ptr<IShape> foundation = make_shared<CRectangle>(Point{100, 100}, Point{300, 200});
     foundation->GetFillStyle()->SetColor(0x573d00);
     shared_ptr<IShape> tube = make_shared<CRectangle>(Point{ 270, 50 }, Point{ 290, 100 });
     tube->GetFillStyle()->SetColor(0xfc0303);
@@ -23,16 +23,16 @@ int main()
     group->InsertShape(roof);
 
     group->SetFrame(RectD{ Point{ 100, 100 }, 200, 100 });
-    group->GetFillStyle()->SetColor(0xFF00FF);*/
+    group->GetFillStyle()->SetColor(0xFF00FF);
 
-    shared_ptr<IShape> foundation = make_shared<CRectangle>(Point{ 100, 100 }, Point{ 300, 200 });
-    shared_ptr<CGroupShape> group = make_shared<CGroupShape>(foundation);
+    //shared_ptr<IShape> foundation = make_shared<CRectangle>(Point{ 100, 100 }, Point{ 300, 200 });
+    //shared_ptr<CGroupShape> group = make_shared<CGroupShape>(foundation);
 
-    //CSlide slide(1000, 1000);
-    //slide.InsertShape(group);
+    CSlide slide(1000, 1000);
+    slide.InsertShape(group);
     
 
-    //ofstream output("../picture.svg");
-    //SVGCanvas canvas(output);
-    //slide.Draw(canvas);
+    ofstream output("../picture.svg");
+    SVGCanvas canvas(output);
+    slide.Draw(canvas);
 }
