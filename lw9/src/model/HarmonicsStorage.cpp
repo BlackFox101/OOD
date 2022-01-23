@@ -45,7 +45,6 @@ CoordinatesVector HarmonicsStorage::GetSumCoordinates() const
             catch (...) {
                 coordinates.push_back({(double)i, 0});
             }
-            //coordinates.at(i).x += curCoordinates[i].x;
             coordinates.at(i).y += curCoordinates[i].y;
         }
     }
