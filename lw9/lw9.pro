@@ -16,19 +16,29 @@ SOURCES += \
     src/model/Harmonic.cpp \
     src/model/HarmonicsStorage.cpp \
     src/view/chartdrawerview.cpp \
-    src/view/createnewharmonicview.cpp
+    src/view/chartgraphicview.cpp \
+    src/view/createnewharmonicview.cpp \
+    src/view/harmoniceditor.cpp \
+    src/view/harmoniclist.cpp \
+    src/view/harmoniclistitem.cpp
 
 HEADERS += \
     src/common/harmonicdto.h \
     src/common/harmonictype.h \
     src/controller/ChartDrawerController.h \
     src/controller/ChartDrawerControllerInterface.h \
+    src/controller/HarmonicEditorControllerInterface.h \
+    src/model/EditedHarmonicInterface.h \
     src/model/Harmonic.h \
     src/model/HarmonicInterface.h \
     src/model/HarmonicsStorage.h \
     src/model/HarmonicsStorageInterface.h \
     src/view/chartdrawerview.h \
-    src/view/createnewharmonicview.h
+    src/view/chartgraphicview.h \
+    src/view/createnewharmonicview.h \
+    src/view/harmoniceditor.h \
+    src/view/harmoniclist.h \
+    src/view/harmoniclistitem.h
 
 FORMS += \
     src/view/chartdrawerview.ui \

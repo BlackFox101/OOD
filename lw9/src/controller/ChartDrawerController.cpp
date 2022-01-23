@@ -6,13 +6,37 @@ ChartDrawerController::ChartDrawerController(std::shared_ptr<HarmonicsStorageInt
 {
 }
 
-void ChartDrawerController::CreateNewHarmonic(HarmonicType type, double amplitude, double frequency, double phase) const
+void ChartDrawerController::CreateNewHarmonic(HarmonicDTO harmonic)
 {
-	auto harmonic = std::make_shared<Harmonic>(type, amplitude, frequency, phase);
-	m_harmonicsStorage->AddHarmonic(harmonic);
+    auto newHarmonic = std::make_shared<Harmonic>(harmonic.type, harmonic.amplitude, harmonic.frequency, harmonic.phase);
+    m_harmonicsStorage->AddHarmonic(newHarmonic);
 }
 
-void ChartDrawerController::DeleteHarmonic(size_t index) const
+void ChartDrawerController::DeleteHarmonic(size_t index)
 {
 	m_harmonicsStorage->RemoveHarmonicByIndex(index);
+}
+
+void ChartDrawerController::ChangeHarmonicPhase(size_t index, double value)
+{
+    auto harmonic = m_harmonicsStorage->GetHarmonicByIndex(index);
+    harmonic->SetPhase(value);
+}
+
+void ChartDrawerController::ChangeHarmonicFrequency(size_t index, double value)
+{
+    auto harmonic = m_harmonicsStorage->GetHarmonicByIndex(index);
+    harmonic->SetFrequency(value);
+}
+
+void ChartDrawerController::ChangeHarmonicAmplitude(size_t index, double value)
+{
+    auto harmonic = m_harmonicsStorage->GetHarmonicByIndex(index);
+    harmonic->SetAmplitude(value);
+}
+
+void ChartDrawerController::ChangeHarmonicType(size_t index, HarmonicType value)
+{
+    auto harmonic = m_harmonicsStorage->GetHarmonicByIndex(index);
+    harmonic->SetType(value);
 }

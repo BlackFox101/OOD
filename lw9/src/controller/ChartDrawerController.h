@@ -9,9 +9,14 @@ class ChartDrawerController : public ChartDrawerControllerInterface
 public:
 	ChartDrawerController(std::shared_ptr<HarmonicsStorageInterface> harmonicsStorage);
 
-	void CreateNewHarmonic(HarmonicType type, double amplitude, double frequency, double phase) const override;
-	void DeleteHarmonic(size_t index) const override;
+    void CreateNewHarmonic(HarmonicDTO harmonic) override;
+    void DeleteHarmonic(size_t index) override;
+
+    void ChangeHarmonicPhase(size_t index, double value) override;
+    void ChangeHarmonicFrequency(size_t index, double value) override;
+    void ChangeHarmonicAmplitude(size_t index, double value) override;
+    void ChangeHarmonicType(size_t index, HarmonicType value) override;
+
 private:
 	std::shared_ptr<HarmonicsStorageInterface> m_harmonicsStorage;
 };
-

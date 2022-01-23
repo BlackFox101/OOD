@@ -1,13 +1,14 @@
 #pragma once
+#include <QObject>
 #include "HarmonicInterface.h"
 
-class Harmonic : public HarmonicInterface
+class Harmonic : public QObject, public HarmonicInterface
 {
+    Q_OBJECT
 public:
 	const double MIN_X = 0;
-	const double MAX_X = 4.5;
-	const double STEP = 0.1;
-
+    const double MAX_X = 600;
+    const double STEP = 1;
 
 	Harmonic(HarmonicType type, double amplitude, double frequency, double phase);
 	
@@ -25,6 +26,10 @@ public:
 
 	CoordinatesVector GetCoordinates() const override;
 	std::string ToString() const override;
+
+signals:
+    void DoOnChange();
+
 private:
     HarmonicType m_type;
 	double m_amplitude;

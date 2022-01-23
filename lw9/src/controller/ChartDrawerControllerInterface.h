@@ -1,11 +1,12 @@
 #pragma once
-#include "src/model/HarmonicInterface.h"
+#include "HarmonicEditorControllerInterface.h"
+#include "src/common/harmonicdto.h"
 
-class ChartDrawerControllerInterface
+class ChartDrawerControllerInterface : public HarmonicEditorControllerInterface
 {
 public:
-	virtual void CreateNewHarmonic(HarmonicType type, double amplitude, double frequency, double phase) const = 0;
-	virtual void DeleteHarmonic(size_t index) const = 0;
+    virtual void CreateNewHarmonic(HarmonicDTO harmonic) = 0;
+    virtual void DeleteHarmonic(size_t index) = 0;
 	virtual ~ChartDrawerControllerInterface() = default;
 };
 

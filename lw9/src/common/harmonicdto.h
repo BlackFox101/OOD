@@ -1,7 +1,7 @@
 #ifndef HARMONICDTO_H
 #define HARMONICDTO_H
 
-#include "src/common/HarmonicType.h"
+#include "src/common/harmonictype.h"
 
 struct HarmonicDTO
 {

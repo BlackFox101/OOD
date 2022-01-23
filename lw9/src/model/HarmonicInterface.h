@@ -1,30 +1,22 @@
 #pragma once
 #include <vector>
-#include <string>
-#include <functional>
-#include "src/common/harmonictype.h"
+#include "EditedHarmonicInterface.h"
 
-typedef std::vector<std::pair<double, double>> CoordinatesVector;
-typedef std::function<void()> OutlineStyleCallback;
-
-class HarmonicInterface
+class HarmonicInterface : public EditedHarmonicInterface
 {
 public:
-	virtual HarmonicType GetType() const = 0;
-	virtual void SetType(HarmonicType type) = 0;
+    struct Point
+    {
+        double x;
+        double y;
+    };
 
-	virtual double GetAmplitude() const = 0;
-	virtual void SetAmplitude(double amplitude) = 0;
+    typedef std::vector<Point> CoordinatesVector;
 
-	virtual double GetFrequency() const = 0;
-	virtual void SetFrequency(double frequency) = 0;
+    virtual CoordinatesVector GetCoordinates() const = 0;
+    virtual std::string ToString() const = 0;
 
-	virtual double GetPhase() const = 0;
-	virtual void SetPhase(double phase) = 0;
-
-	virtual CoordinatesVector GetCoordinates() const = 0;
-	virtual std::string ToString() const = 0;
+    void DoOnChange();
 
 	virtual ~HarmonicInterface() = default;
 };
-

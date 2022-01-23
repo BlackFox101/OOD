@@ -1,4 +1,4 @@
-#include "HarmonicType.h"
+#include "harmonictype.h"
 
 std::string HarmonicTypeToString(HarmonicType type)
 {

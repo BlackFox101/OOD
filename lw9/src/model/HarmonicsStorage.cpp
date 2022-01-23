@@ -12,6 +12,7 @@ size_t HarmonicsStorage::GetHarmonicCount() const
 void HarmonicsStorage::AddHarmonic(std::shared_ptr<HarmonicInterface> harmonic)
 {
 	m_harmonics.push_back(harmonic);
+    emit DoOnHarmonicAdded(m_harmonics.size() - 1);
 }
 
 std::shared_ptr<HarmonicInterface> HarmonicsStorage::GetHarmonicByIndex(size_t index) const
@@ -26,4 +27,5 @@ void HarmonicsStorage::RemoveHarmonicByIndex(size_t index)
 		throw std::invalid_argument("There is no element for this index");
 	}
 	m_harmonics.erase(m_harmonics.begin() + index);
+    emit DoOnHarmonicDeleted(index);
 }

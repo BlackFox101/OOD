@@ -2,7 +2,6 @@
 #include "ui_createnewharmonicview.h"
 
 #include <QDoubleValidator>
-
 #include <string>
 #include <sstream>
 
@@ -16,12 +15,18 @@ CreateNewHarmonicView::CreateNewHarmonicView(QWidget *parent) :
     ui->frequencyInput->setValidator( new QDoubleValidator(0, 100, 2, this) );
     ui->phaseInput->setValidator( new QDoubleValidator(0, 100, 2, this) );
 
-    connect(ui->amplitudeInput, SIGNAL(textChanged(const QString &)), this, SLOT(ChangeAmplitude()));
-    connect(ui->frequencyInput, SIGNAL(textChanged(const QString &)), this, SLOT(ChangeFrequency()));
-    connect(ui->phaseInput, SIGNAL(textChanged(const QString &)), this, SLOT(ChangePhase()));
+    connect(ui->amplitudeInput, SIGNAL(textChanged(QString)), this, SLOT(ChangeAmplitude()));
+    connect(ui->frequencyInput, SIGNAL(textChanged(QString)), this, SLOT(ChangeFrequency()));
+    connect(ui->phaseInput, SIGNAL(textChanged(QString)), this, SLOT(ChangePhase()));
     connect(ui->radioButtonSin, SIGNAL(toggled(bool)), this, SLOT(ChangeType()));
 
-    connect(ui->createButton, SIGNAL(clicked()), this, SLOT(HideView()));
+    connect(ui->cancelButton, SIGNAL(clicked()), this, SLOT(Close()));
+    connect(ui->cancelButton, SIGNAL(clicked()), this, SLOT(Close()));
+}
+
+void CreateNewHarmonicView::onClickOkButton(QMainWindow* window)
+{
+    connect(ui->okButton, SIGNAL(clicked()), window, SLOT(CreateNewHarmonic()));
 }
 
 CreateNewHarmonicView::~CreateNewHarmonicView()
@@ -31,19 +36,19 @@ CreateNewHarmonicView::~CreateNewHarmonicView()
 
 void CreateNewHarmonicView::ChangeAmplitude()
 {
-    m_harmonic.amplitude = ui->amplitudeInput->text().toDouble();
+    m_amplitude = ui->amplitudeInput->text().toDouble();
     RewriteHarmonicString();
 }
 
 void CreateNewHarmonicView::ChangeFrequency()
 {
-    m_harmonic.frequency = ui->frequencyInput->text().toDouble();
+    m_frequency = ui->frequencyInput->text().toDouble();
     RewriteHarmonicString();
 }
 
 void CreateNewHarmonicView::ChangePhase()
 {
-    m_harmonic.phase = ui->phaseInput->text().toDouble();
+    m_phase = ui->phaseInput->text().toDouble();
     RewriteHarmonicString();
 }
 
@@ -51,39 +56,49 @@ void CreateNewHarmonicView::ChangeType()
 {
     if (ui->radioButtonSin->isChecked())
     {
-        m_harmonic.type = HarmonicType::Sin;
+        m_type = HarmonicType::Sin;
     }
     else
     {
-        m_harmonic.type = HarmonicType::Cos;
+        m_type = HarmonicType::Cos;
     }
     RewriteHarmonicString();
+}
+
+void CreateNewHarmonicView::ResetValues()
+{
+    m_amplitude = 1;
+    m_frequency = 1;
+    m_phase = 0;
+    m_type = HarmonicType::Sin;
+
+    ui->amplitudeInput->setText(QString::number(m_amplitude));
+    ui->frequencyInput->setText(QString::number(m_frequency));
+    ui->phaseInput->setText(QString::number(m_phase));
+    ui->radioButtonSin->setChecked(true);
 }
 
 void CreateNewHarmonicView::RewriteHarmonicString()
 {
     std::ostringstream function;
-    function << m_harmonic.amplitude << "*" << HarmonicTypeToString(m_harmonic.type) << "(" << m_harmonic.frequency << "*x + " << m_harmonic.phase << ")";
+    function << m_amplitude << "*" << HarmonicTypeToString(m_type) << "(" << m_frequency << "*x + " << m_phase << ")";
 
     ui->showResultLabel->setText(QString::fromStdString(function.str()));
 }
 
-void CreateNewHarmonicView::HideView()
+void CreateNewHarmonicView::Close()
 {
     close();
     ResetValues();
 }
 
-void CreateNewHarmonicView::ResetValues()
+HarmonicDTO CreateNewHarmonicView::GetHarmonicData()
 {
-    m_harmonic.amplitude = 1;
-    m_harmonic.frequency = 1;
-    m_harmonic.phase = 0;
-    m_harmonic.type = HarmonicType::Sin;
+    return HarmonicDTO({ m_amplitude, m_frequency, m_phase, m_type });
+}
 
-    ui->amplitudeInput->setText(QString::number(m_harmonic.amplitude));
-    ui->frequencyInput->setText(QString::number(m_harmonic.frequency));
-    ui->phaseInput->setText(QString::number(m_harmonic.phase));
-    ui->radioButtonSin->setChecked(true);
-
+void CreateNewHarmonicView::reject()
+{
+    QDialog::reject();
+    ResetValues();
 }

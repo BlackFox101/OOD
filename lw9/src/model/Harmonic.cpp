@@ -18,6 +18,7 @@ HarmonicType Harmonic::GetType() const
 void Harmonic::SetType(HarmonicType type)
 {
 	m_type = type;
+    emit DoOnChange();
 }
 
 double Harmonic::GetAmplitude() const
@@ -28,6 +29,7 @@ double Harmonic::GetAmplitude() const
 void Harmonic::SetAmplitude(double amplitude)
 {
 	m_amplitude = amplitude;
+    emit DoOnChange();
 }
 
 double Harmonic::GetFrequency() const
@@ -38,6 +40,7 @@ double Harmonic::GetFrequency() const
 void Harmonic::SetFrequency(double frequency)
 {
 	m_frequency = frequency;
+    emit DoOnChange();
 }
 
 double Harmonic::GetPhase() const
@@ -48,9 +51,10 @@ double Harmonic::GetPhase() const
 void Harmonic::SetPhase(double phase)
 {
 	m_phase = phase;
+    emit DoOnChange();
 }
 
-CoordinatesVector Harmonic::GetCoordinates() const
+HarmonicInterface::CoordinatesVector Harmonic::GetCoordinates() const
 {
 	CoordinatesVector coordinates;
 	double x = MIN_X;

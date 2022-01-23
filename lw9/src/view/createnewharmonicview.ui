@@ -19,13 +19,13 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>11</x>
      <y>11</y>
-     <width>274</width>
-     <height>284</height>
+     <width>272</width>
+     <height>279</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -183,7 +183,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
         <item>
-         <widget class="QPushButton" name="createButton">
+         <widget class="QPushButton" name="okButton">
           <property name="text">
            <string>OK</string>
           </property>
