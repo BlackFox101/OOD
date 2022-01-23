@@ -157,16 +157,27 @@ TEST_CASE("HarmonicsStorage")
             auto coordinates = model->GetSumCoordinates();
             auto point = coordinates[0];
             CHECK(floor(point.y * 100) / 100 == 5.53);
+            CHECK(point.x == 0);
+
             point = coordinates[1];
             CHECK(floor(point.y * 100) / 100 == 4.70);
+            CHECK(point.x == 1);
+
             point = coordinates[2];
             CHECK(floor(point.y * 100) / 100 == 3.65);
+            CHECK(point.x == 2);
+
             point = coordinates[3];
             CHECK(floor(point.y * 100) / 100 == 2.46);
+            CHECK(point.x == 3);
+
             point = coordinates[4];
             CHECK(floor(point.y * 100) / 100 == 1.24);
+            CHECK(point.x == 4);
+
             point = coordinates[5];
             CHECK(floor(point.y * 100) / 100 == 0.07);
+            CHECK(point.x == 5);
         }
     }
 }
