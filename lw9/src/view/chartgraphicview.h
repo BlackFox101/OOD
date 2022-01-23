@@ -9,17 +9,19 @@ class ChartGraphicView : public QObject
      Q_OBJECT
 public:
     ChartGraphicView(QTabWidget* tabs, QGraphicsView* graphicsView, QTableWidget* table);
-    void ChangeSelectedHarmonic(std::shared_ptr<HarmonicInterface> harmonic);
+    void UpdateCoornates(CoordinatesVector coordinates);
 
 private slots:
     void ChangeView(int index);
-    void UpdateDate();
+    void UpdateView();
 
 private:
     std::unique_ptr<QTabWidget> m_tabs;
     std::unique_ptr<QGraphicsScene> m_graphicsScene;
     std::shared_ptr<QTableWidget> m_table;
-    std::shared_ptr<HarmonicInterface> m_harmonic;
+    CoordinatesVector m_coordinates;
+
+    void Initialize();
 
     void DrawChart();
     void InsertСoordinatesInTable();

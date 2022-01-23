@@ -7,8 +7,8 @@ class Harmonic : public QObject, public HarmonicInterface
     Q_OBJECT
 public:
 	const double MIN_X = 0;
-    const double MAX_X = 600;
-    const double STEP = 1;
+    const double MAX_X = 550;
+    const double STEP = 0.1;
 
 	Harmonic(HarmonicType type, double amplitude, double frequency, double phase);
 	

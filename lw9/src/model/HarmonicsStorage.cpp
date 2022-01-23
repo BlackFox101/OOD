@@ -29,3 +29,26 @@ void HarmonicsStorage::RemoveHarmonicByIndex(size_t index)
 	m_harmonics.erase(m_harmonics.begin() + index);
     emit DoOnHarmonicDeleted(index);
 }
+
+CoordinatesVector HarmonicsStorage::GetSumCoordinates() const
+{
+    CoordinatesVector coordinates;
+    for(auto& harmonic : m_harmonics)
+    {
+        auto curCoordinates = harmonic->GetCoordinates();
+        for (size_t i = 0; i < curCoordinates.size(); ++i)
+        {
+            try
+            {
+                coordinates.at(i);
+            }
+            catch (...) {
+                coordinates.push_back({0, 0});
+            }
+            coordinates.at(i).x += curCoordinates[i].x;
+            coordinates.at(i).y += curCoordinates[i].y;
+        }
+    }
+
+    return coordinates;
+}

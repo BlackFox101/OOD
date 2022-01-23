@@ -1,4 +1,5 @@
 #include "harmoniceditor.h"
+#include <QDoubleValidator>
 
 HarmonicEditor::HarmonicEditor(std::shared_ptr<HarmonicEditorControllerInterface> controller,
                                QGroupBox* editorMenuBox,
@@ -18,6 +19,14 @@ HarmonicEditor::HarmonicEditor(std::shared_ptr<HarmonicEditorControllerInterface
     m_editorMenuBox->hide();
 
     Initialize();
+
+    auto validator = new QDoubleValidator(0, 100, 2, this);
+    QLocale locale(QLocale::English);
+    validator->setLocale(locale);
+
+    m_amplitudeInput->setValidator(validator);
+    m_frequencyInput->setValidator(validator);
+    m_phaseInput->setValidator(validator);
 }
 
 void HarmonicEditor::Initialize()

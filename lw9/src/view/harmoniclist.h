@@ -8,10 +8,18 @@ class HarmonicList : public QObject
     Q_OBJECT
 public:
     HarmonicList(QListWidget* list);
+
     void AddNewHarmonic(std::shared_ptr<HarmonicInterface> harmonic);
     void DeleteHarmonicByIndex(size_t inex);
-    size_t GetSelectedharmonicIndex();
-    size_t GetItemCount();
+    int GetSelectedharmonicIndex();
+    int GetItemCount();
+
+signals:
+    void DoHarmonicChanged();
+
+public slots:
+    void HarmonicChanged();
+
 
 private:
     std::shared_ptr<QListWidget> m_list;

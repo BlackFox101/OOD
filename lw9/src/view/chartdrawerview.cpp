@@ -21,6 +21,8 @@ ChartDrawerView::ChartDrawerView(std::shared_ptr<HarmonicsStorageInterface> harm
     connect(ui->addNewButton, SIGNAL(clicked()), this, SLOT(OpenAddNewHarmonicView()));
     connect(dynamic_cast<QObject*>(m_harmonicsStorage.get()), SIGNAL(DoOnHarmonicAdded(size_t)), this, SLOT(HarmonicAdded(size_t)));
     connect(dynamic_cast<QObject*>(m_harmonicsStorage.get()), SIGNAL(DoOnHarmonicDeleted(size_t)), this, SLOT(HarmonicDeleted(size_t)));
+    connect(dynamic_cast<QObject*>(m_harmonicList.get()), SIGNAL(DoHarmonicChanged()), this, SLOT(HarmonicChanged()));
+
     m_createNewHarmonicView.onClickOkButton(this);
     connect(ui->harmonicList, SIGNAL(itemSelectionChanged()), this, SLOT(ChangeSelectedHarmonic()));
     connect(ui->deleteSelectedButton, SIGNAL(clicked()), this, SLOT(DeleteHarmonic()));
@@ -45,6 +47,10 @@ void ChartDrawerView::Initialize()
     {
         ui->deleteSelectedButton->setEnabled(false);
     }
+    else
+    {
+        m_chartGraphicView->UpdateCoornates(m_harmonicsStorage->GetSumCoordinates());
+    }
 }
 
 void ChartDrawerView::HarmonicAdded(size_t index)
@@ -52,6 +58,8 @@ void ChartDrawerView::HarmonicAdded(size_t index)
     auto harmonic = m_harmonicsStorage->GetHarmonicByIndex(index);
     m_harmonicList->AddNewHarmonic(harmonic);
     ui->deleteSelectedButton->setEnabled(true);
+
+   m_chartGraphicView->UpdateCoornates(m_harmonicsStorage->GetSumCoordinates());
 }
 
 void ChartDrawerView::HarmonicDeleted(size_t index)
@@ -69,6 +77,13 @@ void ChartDrawerView::HarmonicDeleted(size_t index)
     m_harmonicList->DeleteHarmonicByIndex(index);
     ChangeSelectedHarmonic();
     connect(ui->harmonicList, SIGNAL(itemSelectionChanged()), this, SLOT(ChangeSelectedHarmonic()));
+
+    m_chartGraphicView->UpdateCoornates(m_harmonicsStorage->GetSumCoordinates());
+}
+
+void ChartDrawerView::HarmonicChanged()
+{
+    m_chartGraphicView->UpdateCoornates(m_harmonicsStorage->GetSumCoordinates());
 }
 
 void ChartDrawerView::OpenAddNewHarmonicView()
@@ -91,7 +106,7 @@ void ChartDrawerView::DeleteHarmonic()
 
 void ChartDrawerView::ChangeSelectedHarmonic()
 {
-    size_t index = m_harmonicList->GetSelectedharmonicIndex();
+    int index = m_harmonicList->GetSelectedharmonicIndex();
     if (index < 0 || index >= m_harmonicList->GetItemCount())
     {
         return;
@@ -101,7 +116,6 @@ void ChartDrawerView::ChangeSelectedHarmonic()
     HarmonicDTO harmonicDTO = { harmonic->GetAmplitude(), harmonic->GetFrequency(), harmonic->GetPhase(), harmonic->GetType() };
     m_harmonicEditor->ChangeSelectedHarmonic(harmonicDTO, index);
 
-    m_chartGraphicView->ChangeSelectedHarmonic(harmonic);
 }
 
 

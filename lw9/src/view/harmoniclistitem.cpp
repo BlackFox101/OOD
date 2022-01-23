@@ -16,4 +16,5 @@ std::shared_ptr<QListWidgetItem> HarmonicListItem::GetListWidgetItem()
 void HarmonicListItem::ChangeListWidgetItemText()
 {
     m_listWidgetItem->setText(QString::fromStdString(m_harmonic->ToString()));
+    emit DoOnHarmonicChanged();
 }

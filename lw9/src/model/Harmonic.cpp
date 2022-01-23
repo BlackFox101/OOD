@@ -54,7 +54,7 @@ void Harmonic::SetPhase(double phase)
     emit DoOnChange();
 }
 
-HarmonicInterface::CoordinatesVector Harmonic::GetCoordinates() const
+CoordinatesVector Harmonic::GetCoordinates() const
 {
 	CoordinatesVector coordinates;
 	double x = MIN_X;

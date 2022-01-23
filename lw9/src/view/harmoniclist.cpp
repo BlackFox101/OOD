@@ -9,6 +9,7 @@ HarmonicList::HarmonicList(QListWidget* list)
 void HarmonicList::AddNewHarmonic(std::shared_ptr<HarmonicInterface> harmonic)
 {
     auto newItem = std::make_shared<HarmonicListItem>(harmonic);
+    connect(dynamic_cast<QObject*>(newItem.get()), SIGNAL(DoOnHarmonicChanged()), this, SLOT(HarmonicChanged()));
     m_listItemStorage.push_back(newItem);
 
     m_list->addItem(newItem->GetListWidgetItem().get());
@@ -17,15 +18,25 @@ void HarmonicList::AddNewHarmonic(std::shared_ptr<HarmonicInterface> harmonic)
 
 void HarmonicList::DeleteHarmonicByIndex(size_t index)
 {
-    auto widget = m_list->takeItem(index);
+    m_list->takeItem(index);
+
+    auto item = m_listItemStorage.at(index);
+    disconnect(dynamic_cast<QObject*>(item.get()), SIGNAL(DoOnHarmonicChanged()), this, SLOT(HarmonicChanged()));
+    m_listItemStorage.erase(m_listItemStorage.begin() + index);
 }
 
-size_t HarmonicList::GetSelectedharmonicIndex()
+int HarmonicList::GetSelectedharmonicIndex()
 {
-    return (size_t)m_list->currentRow();
+    return m_list->currentRow();
 }
 
-size_t HarmonicList::GetItemCount()
+int HarmonicList::GetItemCount()
 {
     return m_list->count();
+}
+
+
+void HarmonicList::HarmonicChanged()
+{
+    emit DoHarmonicChanged();
 }

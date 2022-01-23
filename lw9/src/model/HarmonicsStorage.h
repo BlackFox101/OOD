@@ -15,7 +15,10 @@ public:
 	std::shared_ptr<HarmonicInterface> GetHarmonicByIndex(size_t index) const override;
     void RemoveHarmonicByIndex(size_t index) override;
 
+    CoordinatesVector GetSumCoordinates() const override;
+
 signals:
+    void DoOnHarmonicChanged() override;
     void DoOnHarmonicAdded(size_t index) override;
     void DoOnHarmonicDeleted(size_t index) override;
 

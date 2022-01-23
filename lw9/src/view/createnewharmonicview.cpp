@@ -11,9 +11,13 @@ CreateNewHarmonicView::CreateNewHarmonicView(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->amplitudeInput->setValidator( new QDoubleValidator(0, 100, 2, this) );
-    ui->frequencyInput->setValidator( new QDoubleValidator(0, 100, 2, this) );
-    ui->phaseInput->setValidator( new QDoubleValidator(0, 100, 2, this) );
+    auto validator = new QDoubleValidator(0, 100, 2, this);
+    QLocale locale(QLocale::English);
+    validator->setLocale(locale);
+
+    ui->amplitudeInput->setValidator(validator);
+    ui->frequencyInput->setValidator(validator);
+    ui->phaseInput->setValidator(validator);
 
     connect(ui->amplitudeInput, SIGNAL(textChanged(QString)), this, SLOT(ChangeAmplitude()));
     connect(ui->frequencyInput, SIGNAL(textChanged(QString)), this, SLOT(ChangeFrequency()));

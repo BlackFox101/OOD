@@ -10,6 +10,9 @@ public:
     HarmonicListItem(std::shared_ptr<HarmonicInterface> harmonic);
     std::shared_ptr<QListWidgetItem> GetListWidgetItem();
 
+signals:
+    void DoOnHarmonicChanged();
+
 private slots:
     void ChangeListWidgetItemText();
 

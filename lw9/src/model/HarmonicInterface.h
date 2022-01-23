@@ -2,17 +2,17 @@
 #include <vector>
 #include "EditedHarmonicInterface.h"
 
+struct Point
+{
+    double x;
+    double y;
+};
+
+typedef std::vector<Point> CoordinatesVector;
+
 class HarmonicInterface : public EditedHarmonicInterface
 {
 public:
-    struct Point
-    {
-        double x;
-        double y;
-    };
-
-    typedef std::vector<Point> CoordinatesVector;
-
     virtual CoordinatesVector GetCoordinates() const = 0;
     virtual std::string ToString() const = 0;
 

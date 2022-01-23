@@ -28,15 +28,13 @@ public:
 public slots:
     void HarmonicAdded(size_t index);
     void HarmonicDeleted(size_t index);
+    void HarmonicChanged();
 
 private slots:
     void OpenAddNewHarmonicView();
     void CreateNewHarmonic();
     void DeleteHarmonic();
     void ChangeSelectedHarmonic();
-
-    //void ShowCartView();
-    //void ShowTableView();
 
 private:
     std::shared_ptr<HarmonicsStorageInterface> m_harmonicsStorage;

@@ -13,6 +13,9 @@ public:
     virtual std::shared_ptr<HarmonicInterface> GetHarmonicByIndex(size_t index) const = 0;
 	virtual void RemoveHarmonicByIndex(size_t index) = 0;
 
+    virtual CoordinatesVector GetSumCoordinates() const = 0;
+
+    virtual void DoOnHarmonicChanged() = 0;
     virtual void DoOnHarmonicAdded(size_t index) = 0;
     virtual void DoOnHarmonicDeleted(size_t index) = 0;
 
