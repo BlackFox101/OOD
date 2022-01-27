@@ -275,10 +275,14 @@ TEST_CASE("CGroupShape")
 		auto outlineStyle = group->GetOutlineStyle();
 		outlineStyle->SetColor(0xFF00FF);
 		REQUIRE(outlineStyle->GetColor() == 0xFF00FF);
+
+		shared_ptr<IShape> tube = make_shared<CRectangle>(Point{ 270, 50 }, Point{ 290, 100 });
+		group->GetOutlineStyle()->SetColor(0xFFFF00);
+		group->InsertShape(tube);
 		THEN("Got a mixed color")
 		{
 			shared_ptr<IShape> sun = make_shared<CEllipse>(Point{ 0, 0 }, 30, 30);
-			sun->GetOutlineStyle()->SetColor(0x00FF00);
+			sun->GetOutlineStyle()->SetColor(0xFF00FF);
 
 			group->InsertShape(sun);
 			REQUIRE(outlineStyle->GetColor() == nullopt);

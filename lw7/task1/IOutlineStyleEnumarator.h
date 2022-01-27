@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "IOutlineStyle.h"
 
-typedef std::function<void(std::shared_ptr<IOutlineStyle>)> OutlineStyleCallback;
+typedef std::function<bool(std::shared_ptr<IOutlineStyle>)> OutlineStyleCallback;
 
 class IOutlineStyleEnumarator
 {

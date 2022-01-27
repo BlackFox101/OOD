@@ -176,7 +176,10 @@ void CGroupShape::EnumarateFillStyles(FillStyleCallback callback) const
 {
 	for (auto& shape : m_shapes)
 	{
-		callback(shape->GetFillStyle());
+		if (!callback(shape->GetFillStyle()))
+		{
+			break;
+		}
 	}
 }
 
@@ -184,7 +187,10 @@ void CGroupShape::EnumarateOutlineStyles(OutlineStyleCallback callback) const
 {
 	for (auto& shape : m_shapes)
 	{
-		callback(shape->GetOutlineStyle());
+		if (!callback(shape->GetOutlineStyle()))
+		{
+			break;
+		}
 	}
 }
 

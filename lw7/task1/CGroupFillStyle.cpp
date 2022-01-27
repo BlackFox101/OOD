@@ -14,7 +14,7 @@ std::optional<RGBAColor> CGroupFillStyle::GetColor() const
 		if (!currentColor)
 		{
 			color = std::nullopt;
-			return;
+			return false;
 		}
 		if (!color)
 		{
@@ -23,8 +23,10 @@ std::optional<RGBAColor> CGroupFillStyle::GetColor() const
 		else if (*color != *currentColor)
 		{
 			color = std::nullopt;
-			return;
+			return false;
 		}
+
+		return true;
 	});
 	return color;
 }
@@ -34,5 +36,6 @@ void CGroupFillStyle::SetColor(RGBAColor color)
 	m_fillStyleEnumerator->EnumarateFillStyles([color](std::shared_ptr<IStyle> style)
 	{
 		style->SetColor(color);
+		return true;
 	});
 }

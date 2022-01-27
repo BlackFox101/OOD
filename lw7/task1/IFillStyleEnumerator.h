@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "IStyle.h"
 
-typedef std::function<void(std::shared_ptr<IStyle>)> FillStyleCallback;
+typedef std::function<bool(std::shared_ptr<IStyle>)> FillStyleCallback;
 
 class IFillStyleEnumerator
 {

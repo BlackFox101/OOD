@@ -14,7 +14,7 @@ std::optional<RGBAColor> CGroupOutlineStyle::GetColor() const
 		if (!currentColor)
 		{
 			color = std::nullopt;
-			return;
+			return false;
 		}
 		if (!color)
 		{
@@ -23,8 +23,10 @@ std::optional<RGBAColor> CGroupOutlineStyle::GetColor() const
 		else if (*color != *currentColor)
 		{
 			color = std::nullopt;
-			return;
+			return false;
 		}
+
+		return true;
 	});
 	return color;
 }
@@ -34,6 +36,7 @@ void CGroupOutlineStyle::SetColor(RGBAColor color)
 	m_outlineStyleEnumerator->EnumarateOutlineStyles([color](std::shared_ptr<IOutlineStyle> style)
 	{
 		style->SetColor(color);
+		return true;
 	});
 }
 
@@ -46,7 +49,7 @@ std::optional<double> CGroupOutlineStyle::GetWidth() const
 		if (!currentWidth)
 		{
 			width = std::nullopt;
-			return;
+			return false;
 		}
 		if (!width)
 		{
@@ -55,8 +58,9 @@ std::optional<double> CGroupOutlineStyle::GetWidth() const
 		else if (*width != *currentWidth)
 		{
 			width = std::nullopt;
-			return;
+			return false;
 		}
+		return true;
 	});
 	return width;
 }
@@ -66,5 +70,6 @@ void CGroupOutlineStyle::SetWidth(double width)
 	m_outlineStyleEnumerator->EnumarateOutlineStyles([width](std::shared_ptr<IOutlineStyle> style)
 	{
 		style->SetWidth(width);
+		return true;
 	});
 }
