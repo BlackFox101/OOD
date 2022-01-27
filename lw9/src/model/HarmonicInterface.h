@@ -13,6 +13,8 @@ typedef std::vector<Point> CoordinatesVector;
 class HarmonicInterface : public EditedHarmonicInterface
 {
 public:
+    // TODO: getCoordinate - помненять на получение y по x
+    // ToString убрать - это задача view;
     virtual CoordinatesVector GetCoordinates() const = 0;
     virtual std::string ToString() const = 0;
 
