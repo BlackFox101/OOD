@@ -3,8 +3,8 @@
 
 enum class HarmonicType
 {
-	Sin,
-	Cos
+    Sin,
+    Cos
 };
 
 std::string HarmonicTypeToString(HarmonicType type);
