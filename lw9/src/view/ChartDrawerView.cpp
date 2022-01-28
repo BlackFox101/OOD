@@ -59,7 +59,7 @@ void ChartDrawerView::HarmonicAdded(size_t index)
     m_harmonicList->AddNewHarmonic(harmonic);
     ui->deleteSelectedButton->setEnabled(true);
 
-   m_chartGraphicView->UpdateCoornates(m_harmonicsStorage->GetSumCoordinates());
+    m_chartGraphicView->UpdateCoornates(m_harmonicsStorage->GetSumCoordinates());
 }
 
 void ChartDrawerView::HarmonicDeleted(size_t index)
@@ -115,7 +115,6 @@ void ChartDrawerView::ChangeSelectedHarmonic()
 
     HarmonicDTO harmonicDTO = { harmonic->GetAmplitude(), harmonic->GetFrequency(), harmonic->GetPhase(), harmonic->GetType() };
     m_harmonicEditor->ChangeSelectedHarmonic(harmonicDTO, index);
-
 }
 
 

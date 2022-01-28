@@ -2,7 +2,7 @@
 #include "../../../catch2/catch.hpp"
 
 #include "Harmonic.h"
-#include "HarmonicStorage.h"
+#include "HarmonicsStorage.h"
 
 using namespace std;
 
@@ -61,18 +61,31 @@ TEST_CASE("Harmonic")
         }
     }
 
-    WHEN("GetYByX")
+    WHEN("ToString")
+    {
+        CHECK(harmonic.ToString() == "1*sin(1*x + 0)");
+        Harmonic h(HarmonicType::Cos, 4, 2, 7);
+        CHECK(h.ToString() == "4*cos(2*x + 7)");
+    }
+
+    WHEN("GetSumCoodrinates")
     {
         THEN("Correct coordinates")
         {
             Harmonic harmonic(HarmonicType::Sin, 4.38, 2.25, 1.5);
-
-            CHECK(floor(harmonic.GetYByX(0) * 100) / 100 == 4.36);
-            CHECK(floor(harmonic.GetYByX(0.1) * 100) / 100 == 4.32);
-            CHECK(floor(harmonic.GetYByX(0.2) * 100) / 100 == 4.06);
-            CHECK(floor(harmonic.GetYByX(0.3) * 100) / 100 == 3.60);
-            CHECK(floor(harmonic.GetYByX(0.4) * 100) / 100 == 2.95);
-            CHECK(floor(harmonic.GetYByX(0.5) * 100) / 100 == 2.16);
+            auto coordinates = harmonic.GetCoordinates();
+            auto point = coordinates[0];
+            CHECK(floor(point.y * 100) / 100 == 4.36);
+            point = coordinates[1];
+            CHECK(floor(point.y * 100) / 100 == 4.32);
+            point = coordinates[2];
+            CHECK(floor(point.y * 100) / 100 == 4.06);
+            point = coordinates[3];
+            CHECK(floor(point.y * 100) / 100 == 3.60);
+            point = coordinates[4];
+            CHECK(floor(point.y * 100) / 100 == 2.95);
+            point = coordinates[5];
+            CHECK(floor(point.y * 100) / 100 == 2.16);
         }
     }
 }
@@ -81,8 +94,8 @@ TEST_CASE("HarmonicsStorage")
 {
     WHEN("AddHarmonic")
     {
-        HarmonicStorage storage;
-        shared_ptr<IHarmonic> harmonic = make_shared<Harmonic>(HarmonicType::Sin, 1, 1, 0);
+        HarmonicsStorage storage;
+        shared_ptr<HarmonicInterface> harmonic = make_shared<Harmonic>(HarmonicType::Sin, 1, 1, 0);
         storage.AddHarmonic(harmonic);
         THEN("GetHarmonicCount == 1")
         {
@@ -92,8 +105,8 @@ TEST_CASE("HarmonicsStorage")
 
     WHEN("GetHarmonicByIndex")
     {
-        HarmonicStorage storage;
-        shared_ptr<IHarmonic> harmonic = make_shared<Harmonic>(HarmonicType::Sin, 1, 1, 0);
+        HarmonicsStorage storage;
+        shared_ptr<HarmonicInterface> harmonic = make_shared<Harmonic>(HarmonicType::Sin, 1, 1, 0);
         storage.AddHarmonic(harmonic);
         WHEN("Index - 1 > Count")
         {
@@ -110,8 +123,8 @@ TEST_CASE("HarmonicsStorage")
 
     WHEN("RemoveHarmonicByIndex")
     {
-        HarmonicStorage storage;
-        shared_ptr<IHarmonic> harmonic = make_shared<Harmonic>(HarmonicType::Sin, 1, 1, 0);
+        HarmonicsStorage storage;
+        shared_ptr<HarmonicInterface> harmonic = make_shared<Harmonic>(HarmonicType::Sin, 1, 1, 0);
         storage.AddHarmonic(harmonic);
         WHEN("Index - 1 > Count")
         {
@@ -127,11 +140,11 @@ TEST_CASE("HarmonicsStorage")
             CHECK_THROWS(storage.GetHarmonicByIndex(0));
         }
     }
-    
-    WHEN("GetSumYByX")
+
+    WHEN("GetSumCoodrinates")
     {
-        std::shared_ptr<IHarmonicStorage> model = std::make_shared<HarmonicStorage>();
-        std::shared_ptr<IHarmonic> harmonic = std::make_shared<Harmonic>(HarmonicType::Sin, 3, -3, 0.3);
+        std::shared_ptr<HarmonicsStorageInterface> model = std::make_shared<HarmonicsStorage>();
+        std::shared_ptr<HarmonicInterface> harmonic = std::make_shared<Harmonic>(HarmonicType::Sin, 3, -3, 0.3);
         model->AddHarmonic(harmonic);
 
         harmonic = std::make_shared<Harmonic>(HarmonicType::Sin, 4.38, 2.25, 1.5);
@@ -141,12 +154,30 @@ TEST_CASE("HarmonicsStorage")
         model->AddHarmonic(harmonic);
         THEN("Correct coordinates")
         {
-            CHECK(floor(model->GetSumYByX(0) * 100) / 100 == 5.53);
-            CHECK(floor(model->GetSumYByX(0.1) * 100) / 100 == 4.70);
-            CHECK(floor(model->GetSumYByX(0.2) * 100) / 100 == 3.65);
-            CHECK(floor(model->GetSumYByX(0.3) * 100) / 100 == 2.46);
-            CHECK(floor(model->GetSumYByX(0.4) * 100) / 100 == 1.24);
-            CHECK(floor(model->GetSumYByX(0.5) * 100) / 100 == 0.07);
+            auto coordinates = model->GetSumCoordinates();
+            auto point = coordinates[0];
+            CHECK(floor(point.y * 100) / 100 == 5.53);
+            CHECK(point.x == 0);
+
+            point = coordinates[1];
+            CHECK(floor(point.y * 100) / 100 == 4.70);
+            CHECK(point.x == 1);
+
+            point = coordinates[2];
+            CHECK(floor(point.y * 100) / 100 == 3.65);
+            CHECK(point.x == 2);
+
+            point = coordinates[3];
+            CHECK(floor(point.y * 100) / 100 == 2.46);
+            CHECK(point.x == 3);
+
+            point = coordinates[4];
+            CHECK(floor(point.y * 100) / 100 == 1.24);
+            CHECK(point.x == 4);
+
+            point = coordinates[5];
+            CHECK(floor(point.y * 100) / 100 == 0.07);
+            CHECK(point.x == 5);
         }
     }
 }
